@@ -52,6 +52,14 @@ The Ender 7 defines its own `PAUSE`/`RESUME`/`CANCEL_PRINT`/`LOAD_FILAMENT`/`UNL
 
 ## Printer-Specific Notes
 
+**Wanhao D6** (`klipper/printers/wanhao_d6/printer.cfg`):
+- Board: BTT SKR Mini E3 v3.0; toolhead: BTT EBB42 on CAN bus (`canbus_uuid: 799e85ba0b4e`)
+- BDsensor on EBBCan pins (x_offset=0, y_offset=-13); BMG direct drive (gear_ratio 57:11)
+- Palette 2 connected via USB for multi-material
+- Uses shared `start.cfg`/`macros.cfg` (replaced the D6's own versions)
+- ⚠️ Z `rotation_distance: 4` — original D6 leadscrew is 8mm pitch; kept as-is since it's been running. Revert to 8 if Z moves wrong distance.
+- This printer is the only one in the farm with a CAN bus toolhead and Palette 2
+
 **Ender 7** (`klipper/printers/ender7/printer.cfg`):
 - BDsensor: uses `no_stop_probe` for fast probing; bed_mesh limits are in probe coords
 - `shaper_freq_x = 106.0Hz` is flagged ⚠️ as suspicious — re-run ADXL test before trusting
@@ -67,11 +75,13 @@ The Ender 7 defines its own `PAUSE`/`RESUME`/`CANCEL_PRINT`/`LOAD_FILAMENT`/`UNL
 
 ## OrcaSlicer Profiles
 
-Each printer folder has:
-- `printer_profile.json` — machine definition (bed size, limits, start/end g-code)
-- Process profiles: `quality.json`, `balanced.json`, `speed.json`, `print_in_place.json`
-- Neptune 3 Max also has `printer_06mm.json` and three 0.6mm process profiles (`06mm_*.json`)
-- Ender 3 Pro has `printer_profile_alt.json` — an alternative machine definition
+Most printer folders have `printer_profile.json` plus process profiles: `quality.json`, `balanced.json`, `speed.json`, `print_in_place.json`.
+
+Exceptions:
+- **Neptune 3 Max**: also has `printer_04mm.json`, `printer_06mm.json`, and three 0.6mm process profiles (`06mm_*.json`)
+- **Ender 3 Pro**: machine definitions only (`printer_profile.json`, `printer_profile_alt.json`) — no process profiles
+- **K1 Max** (`orca_profiles/k1_max/`): Creality K1 Max 300×300 "Klipper OPTIMIZED" profile — no Klipper config in this repo, OrcaSlicer profiles only
+- **Wanhao D6**: no OrcaSlicer profiles in this repo yet
 
 OrcaSlicer profiles are standalone JSON; they reference each other by name strings internally. When editing, keep the `"name"` field inside the JSON consistent with the filename convention.
 
