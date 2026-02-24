@@ -54,6 +54,7 @@ The Ender 7 defines its own `PAUSE`/`RESUME`/`CANCEL_PRINT`/`LOAD_FILAMENT`/`UNL
 
 **Wanhao D6** (`klipper/printers/wanhao_d6/printer.cfg`):
 - Board: BTT SKR Mini E3 v3.0; toolhead: BTT EBB42 on CAN bus (`canbus_uuid: 799e85ba0b4e`)
+- Hotend: HICTOP Bambu Lab X1 Carbon Assembly, hardened steel 0.4mm nozzle (`sensor_type: Generic 3950`)
 - BDsensor on EBBCan pins (x_offset=0, y_offset=-13); BMG direct drive (gear_ratio 57:11)
 - Palette 2 connected via USB for multi-material
 - Uses shared `start.cfg`/`macros.cfg` (replaced the D6's own versions)
