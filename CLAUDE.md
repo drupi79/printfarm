@@ -70,7 +70,7 @@ The Ender 7 defines its own `PAUSE`/`RESUME`/`CANCEL_PRINT`/`LOAD_FILAMENT`/`UNL
 
 **Ender 3 V2 Twin 1** serial path uses `by-path` (USB port-specific); others use `by-id`. If a Pi is re-cabled, Twin 1's serial path will break.
 
-**Neptune 3 Max**: includes `[include timelapse.cfg]` which the Ender configs don't. `pwm_cycle_time: 0.020` (50Hz) — change to `0.0166` for 60Hz grid if bed heater causes lamp flicker.
+**Neptune 3 Max**: uses stock inductive proximity sensor (configured as `[probe]`, not `[bltouch]`). Includes `[include timelapse.cfg]` which the Ender configs don't. `pwm_cycle_time: 0.020` (50Hz) — change to `0.0166` for 60Hz grid if bed heater causes lamp flicker.
 
 **Ender 3 Pro** board 4.2.7: uses UART communication (not USB direct). Firmware must be compiled for UART.
 

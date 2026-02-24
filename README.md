@@ -11,7 +11,7 @@ Klipper configs and OrcaSlicer profiles for a home 3D printer farm.
 | Ender 3 Pro | Cartesian | 250×240 | BLTouch | Spider V3 Pro |
 | Ender 3 OG | Cartesian | ~220×220 | BLTouch | Spider V3 Pro |
 | Ender 7 | CoreXY | 260×260 | BDsensor | TZ E3 2.0 |
-| Neptune 3 Max | Cartesian | 430×430 | CR Touch | Copperhead |
+| Neptune 3 Max | Cartesian | 430×430 | Inductive (stock) | Copperhead |
 | Wanhao D6 | Cartesian | 220×220 | BDsensor (EBB42 CAN) | Bambu X1C (HICTOP) |
 
 All Klipper printers run direct drive BMG or equivalent extruders, firmware retraction (0.6mm), and KAMP adaptive bed meshing. The Wanhao D6 also uses a BTT EBB42 CAN toolhead and Palette 2 for multi-material.
