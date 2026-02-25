@@ -72,7 +72,7 @@ The Ender 7 defines its own `PAUSE`/`RESUME`/`CANCEL_PRINT`/`LOAD_FILAMENT`/`UNL
 
 **Neptune 3 Max**: uses stock inductive proximity sensor (configured as `[probe]`, not `[bltouch]`). Includes `[include timelapse.cfg]` which the Ender configs don't. `pwm_cycle_time: 0.020` (50Hz) — change to `0.0166` for 60Hz grid if bed heater causes lamp flicker.
 
-**Ender 3 Pro** board 4.2.7: uses UART communication (not USB direct). Firmware must be compiled for UART.
+**Ender 3 Pro** board 4.2.7: uses UART communication (not USB direct). Firmware must be compiled for UART. Print bed is 220×220 — `position_max` is intentionally set to X=250, Y=240 so the BLTouch probe can reach all four bed screws for `screws_tilt_adjust`. Do not reduce these limits.
 
 ## OrcaSlicer Profiles
 

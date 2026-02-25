@@ -8,7 +8,7 @@ Klipper configs and OrcaSlicer profiles for a home 3D printer farm.
 |---------|-----------|-----|-------|--------|
 | Ender 3 V2 Twin 1 | Cartesian | 250×235 | BLTouch | TZ E3 2.0 |
 | Ender 3 V2 Twin 2 | Cartesian | 250×235 | BLTouch | TZ E3 2.0 |
-| Ender 3 Pro | Cartesian | 250×240 | BLTouch | Spider V3 Pro |
+| Ender 3 Pro | Cartesian | 220×220 | BLTouch | Spider V3 Pro |
 | Ender 3 OG | Cartesian | ~220×220 | BLTouch | Spider V3 Pro |
 | Ender 7 | CoreXY | 260×260 | BDsensor | TZ E3 2.0 |
 | Neptune 3 Max | Cartesian | 430×430 | Inductive (stock) | Copperhead |
