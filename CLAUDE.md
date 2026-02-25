@@ -68,7 +68,7 @@ The Ender 7 defines its own `PAUSE`/`RESUME`/`CANCEL_PRINT`/`LOAD_FILAMENT`/`UNL
 - `rotation_distance: 5.7` for HGX Lite is ~20% above typical — verify with 100mm extrusion test
 - Bed mesh was cleared (corrupted) — run `BED_MESH_CALIBRATE` and `SAVE_CONFIG` before printing
 
-**Ender 3 V2 Twin 1** serial path uses `by-path` (USB port-specific); others use `by-id`. If a Pi is re-cabled, Twin 1's serial path will break.
+**Ender 3 V2 Twins**: print bed is 220×220 — `position_max` is intentionally set to X=250, Y=235 so the BLTouch probe can reach all bed screws for `screws_tilt_adjust`. Do not reduce these limits. Twin 1 serial path uses `by-path` (USB port-specific); others use `by-id`. If a Pi is re-cabled, Twin 1's serial path will break.
 
 **Neptune 3 Max**: uses stock inductive proximity sensor (configured as `[probe]`, not `[bltouch]`). Includes `[include timelapse.cfg]` which the Ender configs don't. `pwm_cycle_time: 0.020` (50Hz) — change to `0.0166` for 60Hz grid if bed heater causes lamp flicker.
 
