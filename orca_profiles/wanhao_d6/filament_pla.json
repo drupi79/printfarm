@@ -1,0 +1,8 @@
+{
+    "name": "Generic PLA @WanhaoD6",
+    "from": "User",
+    "inherits": "Generic PLA",
+    "filament_type": ["PLA"],
+    "filament_max_volumetric_speed": ["20"],
+    "version": "2.3.1.10"
+}
