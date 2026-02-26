@@ -18,6 +18,11 @@ klipper/
     <name>/printer.cfg   # One per printer — includes shared files, all hardware config
 orca_profiles/
   <printer>/        # OrcaSlicer printer + process profiles per machine
+Printer_Backup/
+  <name>/           # Full config snapshots pulled directly from a printer's Pi
+                    # Includes Pi-side files not in this repo (mainsail.cfg, KAMP_Settings.cfg,
+                    # moonraker.conf, crowsnest.conf, timelapse.cfg, octoeverywhere, etc.)
+                    # Reference only — do not edit these; use klipper/printers/<name>/ as source of truth
 ```
 
 ## Config Include Hierarchy
@@ -82,7 +87,7 @@ Exceptions:
 - **Neptune 3 Max**: also has `printer_04mm.json`, `printer_06mm.json`, and three 0.6mm process profiles (`06mm_*.json`)
 - **Ender 3 Pro**: machine definitions only (`printer_profile.json`, `printer_profile_alt.json`) — no process profiles
 - **K1 Max** (`orca_profiles/k1_max/`): Creality K1 Max 300×300 "Klipper OPTIMIZED" profile — no Klipper config in this repo, OrcaSlicer profiles only
-- **Wanhao D6**: no OrcaSlicer profiles in this repo yet
+- **Wanhao D6**: full set of profiles (`printer_profile.json`, process profiles, filament profiles for PLA/PETG/ASA)
 
 OrcaSlicer profiles are standalone JSON; they reference each other by name strings internally. When editing, keep the `"name"` field inside the JSON consistent with the filename convention.
 
