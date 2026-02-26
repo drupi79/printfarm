@@ -18,7 +18,7 @@
     "cooling_tube_retraction": "91.5",
     "default_bed_type": "",
     "default_filament_profile": [
-        "Creality HF Generic PLA"
+        "Generic PLA @K1Max"
     ],
     "default_print_profile": "0.20mm BALANCED @K1Max",
     "deretraction_speed": [
@@ -158,7 +158,7 @@
     ],
     "printable_height": "300",
     "printer_model": "Creality K1 Max",
-    "printer_notes": "K1 Max - Klipper via Guilouz Helper Script\nMacros: START_PRINT / END_PRINT / PAUSE / RESUME\nHotend: Stock Sprite (hardened steel 0.4mm)\nMax flow: ~28mm³/s PLA | ~22mm³/s PETG/ASA | ~20mm³/s PCTG",
+    "printer_notes": "K1 Max - Klipper via Guilouz Helper Script\nMacros: START_PRINT / END_PRINT / PAUSE / RESUME\nHotend: Creality Unicorn (hardened steel 0.4mm)\nExtruder: Creality metal extruder upgrade\nMax flow: ~35mm³/s PLA | ~25mm³/s PETG | ~20mm³/s ASA | ~20mm³/s PCTG",
     "printer_settings_id": "Creality K1 Max - Klipper OPTIMIZED",
     "printer_structure": "corexy",
     "printer_technology": "FFF",

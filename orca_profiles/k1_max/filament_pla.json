@@ -1,0 +1,8 @@
+{
+    "name": "Generic PLA @K1Max",
+    "from": "User",
+    "inherits": "Generic PLA",
+    "filament_type": ["PLA"],
+    "filament_max_volumetric_speed": ["35"],
+    "version": "2.3.1.10"
+}

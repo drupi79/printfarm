@@ -1,0 +1,8 @@
+{
+    "name": "Generic ASA @K1Max",
+    "from": "User",
+    "inherits": "Generic ASA",
+    "filament_type": ["ASA"],
+    "filament_max_volumetric_speed": ["20"],
+    "version": "2.3.1.10"
+}

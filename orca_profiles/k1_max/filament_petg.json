@@ -1,0 +1,8 @@
+{
+    "name": "Generic PETG @K1Max",
+    "from": "User",
+    "inherits": "Generic PETG",
+    "filament_type": ["PETG"],
+    "filament_max_volumetric_speed": ["25"],
+    "version": "2.3.1.10"
+}
