@@ -6,8 +6,8 @@ Klipper configs and OrcaSlicer profiles for a home 3D printer farm.
 
 | Printer | Kinematics | Bed | Probe | Hotend | Host |
 |---------|-----------|-----|-------|--------|------|
-| Ender 3 V2 Twin 1 | Cartesian | 220×220 | BLTouch | TZ E3 2.0 | Raspberry Pi |
-| Ender 3 V2 Twin 2 | Cartesian | 220×220 | BLTouch | TZ E3 2.0 | Raspberry Pi |
+| Ender 3 V2 Twin 1 | Cartesian | 220×220 | BLTouch | TZ E3 2.0 | Intel NUC (shared) |
+| Ender 3 V2 Twin 2 | Cartesian | 220×220 | BLTouch | TZ E3 2.0 | Intel NUC (shared) |
 | Ender 3 Pro | Cartesian | 220×220 | BLTouch | Spider V3 Pro | Raspberry Pi |
 | Ender 3 OG | Cartesian | ~220×220 | BLTouch | Spider V3 Pro | Raspberry Pi |
 | Ender 7 | CoreXY | 260×260 | BDsensor | TZ E3 2.0 | BTT Pi v1.2 |
