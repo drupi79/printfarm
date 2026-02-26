@@ -8,11 +8,11 @@ Klipper configs and OrcaSlicer profiles for a home 3D printer farm.
 |---------|-----------|-----|-------|--------|------|
 | Ender 3 V2 Twin 1 | Cartesian | 220×220 | BLTouch | TZ E3 2.0 | Intel NUC (shared) |
 | Ender 3 V2 Twin 2 | Cartesian | 220×220 | BLTouch | TZ E3 2.0 | Intel NUC (shared) |
-| Ender 3 Pro | Cartesian | 220×220 | BLTouch | Spider V3 Pro | Raspberry Pi |
-| Ender 3 OG | Cartesian | ~220×220 | BLTouch | Spider V3 Pro | Raspberry Pi |
+| Ender 3 Pro | Cartesian | 220×220 | BLTouch | Spider V3 Pro | Pi 4 8GB |
+| Ender 3 OG | Cartesian | ~220×220 | BLTouch | Spider V3 Pro | Pi 3 |
 | Ender 7 | CoreXY | 260×260 | BDsensor | TZ E3 2.0 | BTT Pi v1.2 |
-| Neptune 3 Max | Cartesian | 430×430 | Inductive (stock) | Copperhead | Raspberry Pi |
-| Wanhao D6 | Cartesian | 200×200 | BDsensor (EBB42 CAN) | Bambu X1C (HICTOP) | Raspberry Pi |
+| Neptune 3 Max | Cartesian | 430×430 | Inductive (stock) | Copperhead | Pi 5 8GB |
+| Wanhao D6 | Cartesian | 200×200 | BDsensor (EBB42 CAN) | Bambu X1C (HICTOP) | Pi 4 8GB |
 | K1 Max | CoreXY | 300×300 | Strain gauge | Unicorn | — |
 
 All Klipper printers run direct drive BMG or equivalent extruders, firmware retraction (0.6mm), and KAMP adaptive bed meshing. The Wanhao D6 also uses a BTT EBB42 CAN toolhead and Palette 2 for multi-material. The K1 Max is rooted via Guilouz Helper Script with Creality metal extruder and Unicorn hotend upgrades.
