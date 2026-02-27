@@ -61,10 +61,9 @@ The Ender 7 defines its own `PAUSE`/`RESUME`/`CANCEL_PRINT`/`LOAD_FILAMENT`/`UNL
 - Board: BTT SKR Mini E3 v3.0; toolhead: BTT EBB42 on CAN bus (`canbus_uuid: 799e85ba0b4e`)
 - Hotend: HICTOP Bambu Lab X1 Carbon Assembly, hardened steel 0.4mm nozzle (`sensor_type: Generic 3950`)
 - BDsensor on EBBCan pins (x_offset=0, y_offset=-13); BMG direct drive (gear_ratio 57:11)
-- Palette 2 connected via USB for multi-material
 - Uses shared `start.cfg`/`macros.cfg` (replaced the D6's own versions)
 - ⚠️ Z `rotation_distance: 4` — original D6 leadscrew is 8mm pitch; kept as-is since it's been running. Revert to 8 if Z moves wrong distance.
-- This printer is the only one in the farm with a CAN bus toolhead and Palette 2
+- This printer is the only one in the farm with a CAN bus toolhead
 
 **Ender 7** (`klipper/printers/ender7/printer.cfg`), host: Raspberry Pi 5 4GB:
 - BDsensor: uses `no_stop_probe` for fast probing; bed_mesh limits are in probe coords

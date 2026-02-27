@@ -15,7 +15,7 @@ Klipper configs and OrcaSlicer profiles for a home 3D printer farm.
 | Wanhao D6 | Cartesian | 200×200 | BDsensor (EBB42 CAN) | Bambu X1C (HICTOP) | Pi 4 8GB |
 | K1 Max | CoreXY | 300×300 | Strain gauge | Unicorn | — |
 
-All Klipper printers run direct drive BMG or equivalent extruders, firmware retraction (0.6mm), and KAMP adaptive bed meshing. The Wanhao D6 also uses a BTT EBB42 CAN toolhead and Palette 2 for multi-material. The K1 Max is rooted via Guilouz Helper Script with Creality metal extruder and Unicorn hotend upgrades.
+All Klipper printers run direct drive BMG or equivalent extruders, firmware retraction (0.6mm), and KAMP adaptive bed meshing. The Wanhao D6 also uses a BTT EBB42 CAN toolhead. The K1 Max is rooted via Guilouz Helper Script with Creality metal extruder and Unicorn hotend upgrades.
 
 > **OrcaSlicer profiles only (no Klipper config in this repo):** Creality K1 Max (300×300)
 
