@@ -66,7 +66,7 @@ The Ender 7 defines its own `PAUSE`/`RESUME`/`CANCEL_PRINT`/`LOAD_FILAMENT`/`UNL
 - ⚠️ Z `rotation_distance: 4` — original D6 leadscrew is 8mm pitch; kept as-is since it's been running. Revert to 8 if Z moves wrong distance.
 - This printer is the only one in the farm with a CAN bus toolhead and Palette 2
 
-**Ender 7** (`klipper/printers/ender7/printer.cfg`):
+**Ender 7** (`klipper/printers/ender7/printer.cfg`), host: Raspberry Pi 5 4GB:
 - BDsensor: uses `no_stop_probe` for fast probing; bed_mesh limits are in probe coords
 - `shaper_freq_x = 106.0Hz` is flagged ⚠️ as suspicious — re-run ADXL test before trusting
 - Y input shaper is commented out (placeholder only) — must run `SHAPER_CALIBRATE` for Y
