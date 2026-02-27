@@ -268,12 +268,35 @@ rt_sample_time: <TBD — tune after initial setup>
 
 ---
 
+## EVA 3 Toolhead Compatibility (Researched 2026-02-27)
+
+EVA 3 current release: **v3.0.2** (July 2022). Main repo: https://github.com/EVA-3D/eva-main
+
+All required modules confirmed via community Printables designs:
+
+| Component | Module | Printables Link |
+|---|---|---|
+| MGN12H top carriage | Universal MGN12 Top Mount | https://www.printables.com/model/372296 |
+| HGX Lite extruder top | EVA 3 HGX LITE drive mount | https://www.printables.com/model/776411 |
+| EBB36 back/board mount | EBB36 + HGX Lite combined mount | https://www.printables.com/model/881992 |
+| BDsensor probe mount | Adjustable BD Sensor Mount EVA 3 | https://www.printables.com/model/1116783 |
+| V6/groove mount front | EVA 3 native (official release) | — |
+
+**Key notes:**
+- MGN12H is NOT natively supported by EVA 3 — use community MGN12H top (model 372296 recommended as universal C/H)
+- HGX Lite tops are designed for the 36mm round NEMA14 motor — this IS the standard format; no custom collar needed
+- Use model 776411 for HGX Lite V1 (standard), model 1143215 for V2.0 (oblique tooth gear version) — verify which you have
+- The combined EBB36 + HGX Lite mount (881992) handles both board mounting and extruder top in one piece
+- Verify each model's description targets EVA 3.0.x (not EVA 2.x) before printing
+- EVA 3 has native V6/groove mount front — TZ E3 2.0 is fully supported without community module
+
+---
+
 ## Open Items (Require Physical Measurement)
 
 1. **Z_TILT z_positions** — measure actual leadscrew X positions on your Chiron frame with calipers
 2. **BDsensor x/y offset** — measure after mounting toolhead
 3. **EBB36 pin assignments** — verify endstop and I2C pins against EBB36 v1.2 pinout diagram
 4. **Chiron bed mounting hole pattern** — measure before ordering MIC-6 plate
-5. **HGX Lite NEMA14 round body** — verify if FYSETC motor has standard face-mount holes or needs custom EVA 3 collar
-6. **EVA 3 HGX Lite top** — confirm community design exists and fits round-body NEMA14 before committing to EVA 3
-7. **rt_sample_time** — set after initial printing, tune based on Chiron's speed characteristics
+5. **HGX Lite version** — verify V1 vs V2.0 (oblique tooth) to choose correct Printables model (776411 vs 1143215)
+6. **rt_sample_time** — set after initial printing, tune based on Chiron's speed characteristics
