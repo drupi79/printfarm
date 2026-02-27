@@ -158,7 +158,7 @@
     ],
     "printable_height": "175",
     "printer_model": "Wanhao Duplicator 6",
-    "printer_notes": "Wanhao D6 - Klipper via BTT SKR Mini E3 v3.0\nToolhead: BTT EBB42 CAN (uuid: 799e85ba0b4e)\nHotend: HICTOP Bambu Lab X1C Assembly (hardened steel 0.4mm)\nExtruder: BMG direct drive (57:11 gear ratio)\nProbe: BDsensor (x_offset=0, y_offset=-13)\nPalette 2 connected via USB (multi-material)\nInput Shaping: EI @ 36.0Hz (X), MZV @ 30.4Hz (Y)\nMax Accel: 3900 mm/s²\nMax flow: ~20mm³/s PLA | ~15mm³/s PETG | ~13mm³/s ASA",
+    "printer_notes": "Wanhao D6 - Klipper via BTT SKR Mini E3 v3.0\nToolhead: BTT EBB42 CAN (uuid: 799e85ba0b4e)\nHotend: HICTOP Bambu Lab X1C Assembly (hardened steel 0.4mm)\nExtruder: BMG direct drive (57:11 gear ratio)\nProbe: BDsensor (x_offset=0, y_offset=-13)\nInput Shaping: EI @ 36.0Hz (X), MZV @ 30.4Hz (Y)\nMax Accel: 3900 mm/s²\nMax flow: ~20mm³/s PLA | ~15mm³/s PETG | ~13mm³/s ASA",
     "printer_settings_id": "Wanhao Duplicator 6 - Klipper OPTIMIZED",
     "printer_structure": "i3",
     "printer_technology": "FFF",
