@@ -30,17 +30,20 @@ When `use_firmware_retraction: "1"`, OrcaSlicer emits G10/G11 and Klipper applie
 
 ## Section 2: Process Profiles
 
-Three profiles replacing the current two. All inherit from `0.20mm Standard @MyKlipper`.
+Four profiles replacing the current two. All inherit from `0.20mm Standard @MyKlipper` except `print_in_place.json` which is standalone.
 
 | File | Renamed From | Outer/Inner/Top/Travel Accel | Walls | Use Case |
 |---|---|---|---|---|
 | `quality.json` | `standard_conservative.json` | 1800 / 2000 / 1800 / 2000 | 3 | Detailed parts, overhangs, best surface finish |
 | `balanced.json` | `standard.json` | 3250 / 3250 / 3250 / 4400 | 3 | Everyday printing — good quality at reasonable speed |
 | `speed.json` | new | 4000 / 4400 / 3500 / 4400 | 2 | Functional parts, drafts — time over finish |
+| `print_in_place.json` | new | 800 / 1000 / 800 / 2000 | 4 | Print-in-place hinges, flex mechanisms — slow and precise |
 
 `quality.json` retains tree support, overhang speeds, and 5-shell top/bottom from current `standard_conservative.json`.
 
 `speed.json` uses 4/3 top/bottom shells and max accels within input shaper limits (MZV@63.2Hz X, 3hump_ei@82.2Hz Y, max_accel 4400).
+
+`print_in_place.json` is adapted from the Wanhao D6 profile: outer wall speed 30mm/s, tree supports, precise outer wall, aligned seam with seam slope, 5 top/bottom shells, 15% grid infill. Inherits `""` (OrcaSlicer system defaults, fully standalone).
 
 Old files (`standard.json`, `standard_conservative.json`) are deleted after new profiles are created.
 
