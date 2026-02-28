@@ -20,7 +20,7 @@
     "default_filament_profile": [
         "Creality Generic PLA"
     ],
-    "default_print_profile": "0.20mm Standard @Creality Ender3 Pro 0.4",
+    "default_print_profile": "0.20mm BALANCED @Ender3Pro",
     "deretraction_speed": [
         "40"
     ],

@@ -82,7 +82,7 @@ Most printer folders have `printer_profile.json` plus process profiles: `quality
 
 Exceptions:
 - **Neptune 3 Max**: also has `printer_04mm.json`, `printer_06mm.json`, and three 0.6mm process profiles (`06mm_*.json`)
-- **Ender 3 Pro**: machine definitions only (`printer_profile.json`, `printer_profile_alt.json`) — no process profiles
+- **Ender 3 Pro**: also has `printer_profile_alt.json`; process profiles use `"0.20mm Standard @Creality Ender3 Pro 0.4"` as parent
 - **K1 Max** (`orca_profiles/k1_max/`): Creality K1 Max 300×300 "Klipper OPTIMIZED" profile — no Klipper config in this repo, OrcaSlicer profiles only
 - **Wanhao D6**: full set of profiles (`printer_profile.json`, process profiles, filament profiles for PLA/PETG/ASA)
 - **Ender 7**: full set of profiles (`printer_profile.json`, process profiles, filament profiles for NuMakers PLA, Generic PLA, Generic PETG)
