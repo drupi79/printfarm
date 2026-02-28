@@ -114,8 +114,8 @@
         "200"
     ],
     "machine_max_speed_z": [
-        "10",
-        "12"
+        "20",
+        "20"
     ],
     "machine_min_extruding_rate": [
         "0",
@@ -151,15 +151,15 @@
     "preferred_orientation": "0",
     "printable_area": [
         "5x5",
-        "245x5",
-        "245x245",
-        "5x245"
+        "255x5",
+        "255x255",
+        "5x255"
     ],
     "printable_height": "280",
     "printer_model": "Generic Klipper Printer",
     "printer_notes": "",
     "printer_settings_id": "Ender 7",
-    "printer_structure": "undefine",
+    "printer_structure": "corexy",
     "printer_technology": "FFF",
     "printer_variant": "0.4",
     "printhost_authorization_type": "key",
@@ -218,7 +218,7 @@
         "3"
     ],
     "upward_compatible_machine": [],
-    "use_firmware_retraction": "0",
+    "use_firmware_retraction": "1",
     "use_relative_e_distances": "1",
     "version": "2.3.1.10",
     "wipe": [
