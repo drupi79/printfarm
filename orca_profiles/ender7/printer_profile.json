@@ -195,13 +195,13 @@
         "18"
     ],
     "retraction_length": [
-        "0.4"
+        "0.6"
     ],
     "retraction_minimum_travel": [
         "2"
     ],
     "retraction_speed": [
-        "35"
+        "40"
     ],
     "scan_first_layer": "0",
     "silent_mode": "0",
