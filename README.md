@@ -1,6 +1,6 @@
 # printfarm
 
-Klipper configs and OrcaSlicer profiles for a home 3D printer farm.
+Klipper configs, OrcaSlicer profiles, and Marlin hardware notes for a home 3D printer farm.
 
 ## Printers
 
@@ -8,6 +8,7 @@ Klipper configs and OrcaSlicer profiles for a home 3D printer farm.
 |---------|-----------|-----|-------|--------|------|
 | Ender 3 V2 Twin 1 | Cartesian | 220×220 | BLTouch | TZ E3 2.0 | Intel NUC (shared) |
 | Ender 3 V2 Twin 2 | Cartesian | 220×220 | BLTouch | TZ E3 2.0 | Intel NUC (shared) |
+| Ender 3 V2 Marlin | Cartesian | 220×220 | BLTouch | TZ E3 2.0 | TBD |
 | Ender 3 Pro | Cartesian | 220×220 | BLTouch | Spider V3 Pro | Pi 4 8GB |
 | Ender 3 OG | Cartesian | ~220×220 | BLTouch | Spider V3 Pro | Pi 3 |
 | Ender 7 | CoreXY | 260×260 | BDsensor | TZ E3 2.0 | Pi 5 4GB |
@@ -19,16 +20,20 @@ All Klipper printers run direct drive BMG or equivalent extruders, firmware retr
 
 > **OrcaSlicer profiles only (no Klipper config in this repo):** Creality K1 Max (300×300)
 
+> **Marlin (MRisCoC) — no Klipper config:** Ender 3 V2 Marlin — hardware notes in `marlin/ender3_v2_marlin/`
+
 ## Structure
 
 ```
 klipper/
-  shared/          # Deployed to every printer
+  shared/          # Deployed to every Klipper printer
     macros.cfg
     start.cfg      # PRINT_START/END, PAUSE/RESUME, adaptive mesh
     start_manual_purge.cfg
   printers/
     <name>/printer.cfg
+marlin/
+  <name>/          # Marlin printer hardware notes (no Configuration.h — stock builds)
 orca_profiles/
   <name>/          # Printer + process + filament profiles per machine
 Printer_Backup/

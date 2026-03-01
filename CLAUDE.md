@@ -4,18 +4,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-Configuration management for a home Klipper 3D printer farm. Files here are **source-of-truth configs** copied to each printer's Raspberry Pi manually (no automated deployment). The `claude_chat_archive/` folder is a historical reference — do not modify it.
+Configuration management for a home 3D printer farm — mostly Klipper, with one Marlin printer. Files here are **source-of-truth configs** copied to each printer's Raspberry Pi manually (no automated deployment). The `claude_chat_archive/` folder is a historical reference — do not modify it.
 
 ## Structure
 
 ```
 klipper/
-  shared/           # Deployed to every printer's Klipper config dir
+  shared/           # Deployed to every Klipper printer's config dir
     macros.cfg      # Utility macros: filament load/unload, preheat, PID cal, bed leveling
     start.cfg       # PRINT_START/END, PAUSE/RESUME, adaptive meshing, M600 filament change
     start_manual_purge.cfg  # Fallback PRINT_START when LINE_PURGE isn't working
   printers/
-    <name>/printer.cfg   # One per printer — includes shared files, all hardware config
+    <name>/printer.cfg   # One per Klipper printer — includes shared files, all hardware config
+marlin/
+  <name>/              # One per Marlin printer
+    HARDWARE_NOTES.md  # Board, firmware version, calibration values (E-steps, offsets)
+                       # No Configuration.h stored — stock MRisCoC builds use pre-built .bin
 orca_profiles/
   <printer>/        # OrcaSlicer printer + process profiles per machine
 Printer_Backup/
@@ -76,6 +80,8 @@ No printer defines macros in `printer.cfg` — all macros live in `macros.cfg` o
 
 **Ender 3 Pro** board 4.2.7: uses UART communication (not USB direct). Firmware must be compiled for UART. Print bed is 220×220 — `position_max` is intentionally set to X=250, Y=240 so the BLTouch probe can reach all four bed screws for `screws_tilt_adjust`. Do not reduce these limits.
 
+**Ender 3 V2 Marlin** (`marlin/ender3_v2_marlin/HARDWARE_NOTES.md`): runs MRisCoC Professional Firmware (Marlin 2.x), stock build — no `Configuration.h` in this repo. OrcaSlicer profile uses `gcode_flavor: marlin2` with real Marlin start/end gcode (G28, G29, M420 S1). Calibration values (E-steps, BLTouch offset, Z offset) are TBD — fill in HARDWARE_NOTES.md after first calibration. Max accel set to 2000mm/s² in OrcaSlicer (no input shaper in Marlin). Printable area 220×220mm (physical bed).
+
 ## OrcaSlicer Profiles
 
 Most printer folders have `printer_profile.json` plus process profiles: `quality.json`, `balanced.json`, `speed.json`, `print_in_place.json`.
@@ -88,6 +94,7 @@ Exceptions:
 - **K1 Max** (`orca_profiles/k1_max/`): Creality K1 Max 300×300 "Klipper OPTIMIZED" profile — no Klipper config in this repo, OrcaSlicer profiles only
 - **Wanhao D6**: full set of profiles (`printer_profile.json`, process profiles, filament profiles for PLA/PETG/ASA)
 - **Ender 7**: full set of profiles (`printer_profile.json`, process profiles, filament profiles for NuMakers PLA, Generic PLA, Generic PETG)
+- **Ender 3 V2 Marlin** (`orca_profiles/ender3_v2_marlin/`): full set — `printer_profile.json` + process profiles; `gcode_flavor: marlin2`; process profiles use `"0.20mm Standard @Creality Ender3 V2"` as parent; names suffixed `@Ender3V2-Marlin`
 
 OrcaSlicer profiles are standalone JSON; they reference each other by name strings internally. When editing, keep the `"name"` field inside the JSON consistent with the filename convention.
 
