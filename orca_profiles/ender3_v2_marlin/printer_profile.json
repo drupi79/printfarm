@@ -126,7 +126,7 @@
         "0"
     ],
     "machine_pause_gcode": "M600",
-    "machine_start_gcode": "M220 S100 ; Reset feedrate\nM221 S100 ; Reset flow\nM140 S[first_layer_bed_temperature] ; Start bed heating\nM109 S150 ; Preheat nozzle to safe temp (no ooze during probing)\nM190 S[first_layer_bed_temperature] ; Wait for bed temp\nG28\nG29\nM420 S1 ; Enable mesh leveling\nM109 S[first_layer_temperature] ; Heat nozzle to print temp\nG92 E0\nG1 Z2.0 F3000\nG1 X1.1 Y20 Z0.3 F5000\nM207 S0.6 F2400 Z0.2 ; Firmware retraction: 0.6mm 40mm/s 0.2mm zhop\nM208 S0 F2400 ; Recover\nG1 X1.1 Y200 F1500 E15\nG1 X1.4 Y200 F5000\nG1 X1.4 Y20 F1500 E30\nG92 E0\nG1 Z2.0 F3000",
+    "machine_start_gcode": "M220 S100 ; Reset feedrate\nM221 S100 ; Reset flow\nM140 S[first_layer_bed_temperature] ; Start bed heating\nM109 S150 ; Preheat nozzle to safe temp (no ooze during probing)\nM190 S[first_layer_bed_temperature] ; Wait for bed temp\nG28\nG29 L0 ; Load UBL mesh slot 0\nM420 S1 ; Enable mesh leveling\nM109 S[first_layer_temperature] ; Heat nozzle to print temp\nG92 E0\nG1 Z2.0 F3000\nG1 X1.1 Y20 Z0.3 F5000\nM207 S0.6 F2400 Z0.2 ; Firmware retraction: 0.6mm 40mm/s 0.2mm zhop\nM208 S0 F2400 ; Recover\nG1 X1.1 Y200 F1500 E15\nG1 X1.4 Y200 F5000\nG1 X1.4 Y20 F1500 E30\nG92 E0\nG1 Z2.0 F3000",
     "machine_tool_change_time": "0",
     "machine_unload_filament_time": "0",
     "manual_filament_change": "0",
@@ -157,7 +157,7 @@
     ],
     "printable_height": "250",
     "printer_model": "Creality Ender-3 V2",
-    "printer_notes": "Ender 3 V2 Marlin — MRisCoC Professional Firmware (Marlin 2.x, stock build)\n- 4.2.2 Board (TMC2208 standalone)\n- BMG Direct Drive Extruder (57:11 gear ratio)\n- TZ E3 2.0 Hotend\n- BLTouch or CR Touch — offset TBD (calibrate before first print)\n- E-steps TBD (stock .bin uses Bowden steps — update EEPROM with M92 for BMG)\n- Input Shaping: N/A (Marlin firmware)",
+    "printer_notes": "Ender 3 V2 Marlin — MRisCoC Professional Firmware (Marlin 2.x, stock build)\n- 4.2.2 Board (TMC2208 standalone)\n- BMG Direct Drive Extruder (57:11 gear ratio)\n- TZ E3 2.0 Hotend\n- BLTouch — offset TBD (calibrate with M851, save with M500)\n- E-steps TBD (stock .bin uses Bowden steps — update EEPROM with M92 for BMG)\n- Input Shaping: N/A (Marlin firmware)",
     "printer_settings_id": "Creality Ender-3 V2 Marlin",
     "printer_structure": "i3",
     "printer_technology": "FFF",

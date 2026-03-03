@@ -12,8 +12,18 @@
 - Physical bed: 220×220mm; build height: 250mm
 - Extruder: BMG clone, direct drive, 57:11 gear ratio
 - Hotend: TZ E3 2.0
-- Probe: BLTouch or CR Touch (confirm and update which unit is installed)
-- Bed leveling: Bilinear ABL (G29 full probe each print)
+- Probe: BLTouch (firmware: Ender3V2-422-BLTUBL-MPC-20260106.bin)
+- Bed leveling: UBL (Unified Bed Leveling) — mesh saved to slot 0, loaded each print via G29 L0
+
+## UBL Setup (one-time, run via terminal or LCD)
+```
+G28       ; home
+G29 P1    ; probe the mesh (automatic phase 1)
+G29 P3    ; fill unprobeable points
+G29 S0    ; save mesh to slot 0
+M500      ; save to EEPROM
+```
+Start gcode then loads the saved mesh each print: `G29 L0` + `M420 S1`
 
 ## Calibration (fill in after tuning)
 Apply values via EEPROM: M92 (steps), M851 (probe offset), then M500 to save.
