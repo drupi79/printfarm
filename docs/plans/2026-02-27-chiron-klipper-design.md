@@ -254,7 +254,7 @@ rt_sample_time: <TBD — tune after initial setup>
 | BTT EZ2209 ×4 | BTT official | ~$10 ea | Standard |
 | BTT U2C v2.1 | BTT official | ~$18 | Standard |
 | BTT EBB36 v1.2 | BTT official | ~$25 | Standard |
-| BDsensor (standard/VB — NOT BDsensor-M) | BIQU/BTT | ~$40 | Standard |
+| BDsensor VB | Pandapi3D — pandapi3d.com/product-page/bed-distance-sensor (NOT the BDsensorM listing) | ~$40 | Standard |
 | MGN12H 500mm rail + block | Trianglelab or reputable AliExpress | ~$25 | Standard |
 | Orbiter 2.x extruder | LDO / Trianglelab (includes integrated motor) | ~$50-60 | Standard |
 | Apollo Lander toolhead prints | Print in-house (PETG/ASA) — files in repo folder | ~$3 filament | — |
