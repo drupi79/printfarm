@@ -103,7 +103,7 @@ TZ-E3 2.0 hotend. Files are in `ApolloLander - Trianglelab - TZ-E3 2.0_2025_02_1
 |---|---|---|
 | Main body | `MainBody Universal/Trianglelab - TZ-E3 2.0 - MainBody Universal - Standard.stl` | Universal fits all non-Ender5 printers |
 | Backplate | `Backplate - LinearRails - MGN12H/Orbiter Extruder/Orbiter 2.x - back motor - mgn12h - Trianglelab - TZ-E3 2.0.stl` | Back motor = motor faces rearward, cleaner umbilical routing |
-| BDsensor mount | `BDSensor Apollo Mount.stl` | Side-mount bracket for BDsensor-M |
+| BDsensor mount | `BDSensor Apollo Mount.stl` | Side-mount bracket for BDsensor |
 
 **Extruder:** Orbiter 2.x — self-contained planetary gearbox extruder with integrated LDO motor.
 No separate motor required. Klipper config: `rotation_distance: 4.637`, no `gear_ratio` entry.
@@ -115,7 +115,7 @@ No separate motor required. Klipper config: `rotation_distance: 4.637`, no `gear
 - Part cooling: dual 5015 blowers → EBB36 fan outputs (built into Apollo Lander body)
 
 **Sensors on toolhead (all wired to EBB36):**
-- BDsensor-M → EBB36 I2C header (mounted via `BDSensor Apollo Mount.stl`)
+- BDsensor → EBB36 I2C header (mounted via `BDSensor Apollo Mount.stl`)
 - Filament runout sensor → EBB36 endstop input
 - ADXL345 → built into EBB36
 - ⚠️ **X endstop NOT on toolhead** — see Section 2 (frame-mounted, wired to SKR 3 EZ)
@@ -254,7 +254,7 @@ rt_sample_time: <TBD — tune after initial setup>
 | BTT EZ2209 ×4 | BTT official | ~$10 ea | Standard |
 | BTT U2C v2.1 | BTT official | ~$18 | Standard |
 | BTT EBB36 v1.2 | BTT official | ~$25 | Standard |
-| BDsensor-M | BIQU/BTT | ~$40 | Standard |
+| BDsensor (standard/VB — NOT BDsensor-M) | BIQU/BTT | ~$40 | Standard |
 | MGN12H 500mm rail + block | Trianglelab or reputable AliExpress | ~$25 | Standard |
 | Orbiter 2.x extruder | LDO / Trianglelab (includes integrated motor) | ~$50-60 | Standard |
 | Apollo Lander toolhead prints | Print in-house (PETG/ASA) — files in repo folder | ~$3 filament | — |
