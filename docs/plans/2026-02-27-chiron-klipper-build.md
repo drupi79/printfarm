@@ -2,7 +2,7 @@
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Convert an Anycubic Chiron with a dead mainboard into a fully Klipper-capable printer with CAN bus toolhead, MGN12H X-axis, dual Z leveling, and a custom 6mm AC-heated bed.
+**Goal:** Convert an Anycubic Chiron with a dead mainboard into a fully Klipper-capable printer with CAN bus toolhead, Apollo Lander + Orbiter 2.x toolhead, MGN12H X-axis, dual Z leveling, Meanwell LRS-350-24 PSU, and a custom 6mm AC-heated bed.
 
 **Architecture:** Hardware build followed by Klipper config authoring. Config lives at `klipper/printers/chiron/printer.cfg` and includes the farm's shared `start.cfg` and `macros.cfg`. Three MCUs: SKR 3 EZ (USB), EBB36 (CAN). Calibration runs last, on the physical printer.
 
@@ -68,33 +68,37 @@ git commit -m "Chiron: add measured frame and carriage dimensions"
 
 ---
 
-### Task 2: Verify EVA 3 toolhead compatibility
+### Task 2: Prepare Apollo Lander print files and EBB36 bracket
 
-**Step 1: Check EVA 3 for HGX Lite top with round-body NEMA14**
+All STL files are in `ApolloLander - Trianglelab - TZ-E3 2.0_2025_02_14/` in the repo root.
 
-Visit `github.com/EVA-3D/eva-main` and the EVA 3 Printables collection. Search for "HGX Lite" in community contributions.
+**Step 1: Confirm EBB36 bracket fit before printing backplate**
 
-Verify:
-- Does an HGX Lite extruder top exist for EVA 3? (yes/no)
-- Does it support a **round-body** NEMA14 (36mm diameter), not just flat-face? (yes/no)
-- If no round-body support: note that a custom collar/clamp plate will need to be designed
+Print and test-fit the EBB36 bracket first — before printing the backplate — to confirm it
+clears the Apollo Lander "back motor" backplate geometry.
 
-**Step 2: Check EVA 3 for EBB36 back plate**
+Primary option: [EBB36 Mount with Cable Strain Relief for Orbiter v2.0 — djos_1475](https://www.printables.com/model/316984)
+(attaches to Orbiter motor body via M3×15/20mm hex standoffs)
 
-Search EVA 3 community contributions for "EBB36" back plate. Verify it exists and download the STL.
+Fallback with PG7 cable gland: [EBB36 mount for Orbiter 2 + PG7 Gland — Blargedy](https://www.printables.com/model/791804)
 
-**Step 3: Check for BDsensor mount compatible with EVA 3 front**
+Once fit is confirmed, proceed to Step 2.
 
-Search EVA 3 community or BDsensor GitHub for a mount that fits the EVA 3 front face. Note if a custom bracket will be needed.
+**Step 2: Print Apollo Lander components** (PETG or ASA — heat resistant near hotend)
 
-**Step 4: Document findings**
+| File | Path |
+|---|---|
+| Main body | `MainBody Universal/Trianglelab - TZ-E3 2.0 - MainBody Universal - Standard.stl` |
+| Backplate | `Backplate - LinearRails - MGN12H/Orbiter Extruder/Orbiter 2.x - back motor - mgn12h - Trianglelab - TZ-E3 2.0.stl` |
+| BDsensor mount | `BDSensor Apollo Mount.stl` |
+| EBB36 bracket | Download from Printables (Step 1) |
 
-Add a "Toolhead Compatibility" note to the design doc with links to all confirmed STLs, and flag anything that needs custom design work.
+**Step 3: Print X endstop bracket**
 
-```bash
-git add docs/plans/2026-02-27-chiron-klipper-design.md
-git commit -m "Chiron: document EVA 3 compatibility findings"
-```
+Primary: [Adjustable Endstop Mount for 2040 Extrusion — evil genius](https://www.printables.com/model/447865)
+
+Mount on left gantry 2040 upright. Adjustable position allows fine-tuning X=0 trigger point
+without reprinting.
 
 ---
 
@@ -125,7 +129,7 @@ Option B: Order raw 410×430mm MIC-6 from onlinemetals.com (cut to size), then t
 
 **Step 3: Order PEI sheet**
 
-Search AliExpress for "Anycubic Chiron PEI spring steel" or "410x430 PEI spring steel". Find Energetic brand listing. **Verify dimensions are exactly 410×430mm before ordering** — some listings show similar sizes. Add magnetic base if not included.
+Amazon — B0CSDWX8S5 ($62.09). 410×430mm double-sided textured PEI spring steel + magnetic base. Confirmed size and compatible with PLA/ABS/ASA/PETG.
 
 **Step 4: Order electronics**
 
@@ -134,11 +138,16 @@ From BTT official AliExpress store or West3D:
 - BTT EZ2209 ×4
 - BTT U2C v2.1
 - BTT EBB36 v1.2
+- BTT DCDC5V module (24V → 5V for Pi 5)
 
-From BIQU/BTT:
-- BDsensor-M
+From Pandapi3D (pandapi3d.com/product-page/bed-distance-sensor):
+- BDsensor VB (~$33 shipped) — **NOT the BDsensor-M listing**
+
+From LDO / Trianglelab / reputable AliExpress:
+- Orbiter 2.x extruder (integrated LDO motor)
 
 From Digi-Key or Mouser:
+- Meanwell LRS-350-24 PSU (24V/14.6A) — **buy from reputable source, Meanwell is counterfeit-prone**
 - Crydom D1D40 SSR (40A, 120VAC)
 
 From Amazon/local:
@@ -152,6 +161,7 @@ From Amazon/local:
 - Braided cable sleeve (4-6mm diameter, 1m) for umbilical
 - 24AWG shielded twisted pair wire (CAN cable, 1m)
 - Buffer transistor for SSR logic (2N2222 or BC337) + 1kΩ resistor
+- Microswitch (standard Omron-style, for X endstop on left gantry)
 
 ---
 
@@ -429,55 +439,63 @@ Push carriage from end to end by hand. Should move with minimal resistance, no r
 
 ---
 
-### Task 10: Assemble and mount EVA 3 toolhead
+### Task 10: Assemble and mount Apollo Lander toolhead
 
-**Prerequisites:** All EVA 3 STL files printed (PETG or ASA). HGX Lite, TZ E3 2.0, dual 5015 fans, EBB36 in hand.
+**Prerequisites:** Apollo Lander parts printed (Task 2). Orbiter 2.x, TZ E3 2.0, dual 5015 fans,
+EBB36, BDsensor VB in hand. EBB36 bracket test-fit confirmed (Task 2 Step 1).
 
-**Step 1: Print EVA 3 components**
+**Step 1: Assemble hotend into Apollo Lander main body**
 
-Print in PETG or ASA (heat resistant — near the hotend):
-- EVA 3 core body (MGN12H mount)
-- HGX Lite extruder top (community version for round-body NEMA14 — or custom collar if needed)
-- V6 groove mount hotend front
-- Dual 5015 fan duct
-- EBB36 back plate
-- BDsensor mount bracket
+Insert TZ E3 2.0 into the Apollo Lander main body groove mount. Secure with retaining screws.
+Route heater cartridge and thermistor wires through the body channels toward the backplate.
 
-**Step 2: Assemble hotend into EVA 3 front**
+**Step 2: Mount Orbiter 2.x extruder to backplate**
 
-Insert TZ E3 2.0 into V6 groove mount front section. Secure with groove mount retaining screws. Route heater cartridge and thermistor wires through EVA 3 body channels.
+Attach Orbiter 2.x to the "back motor" MGN12H backplate using M3 screws. Connect Orbiter motor
+cable to EBB36 stepper connector.
 
-**Step 3: Mount HGX Lite extruder**
+**Step 3: Mount EBB36 to Orbiter**
 
-Attach FYSETC 36mm round body NEMA14 motor to HGX Lite extruder body. Stack EBB36 directly behind motor using motor mount holes (M3×8). Route motor cable from EBB36 stepper connector to motor.
+Using the printed EBB36 bracket (djos_1475 or equivalent) and M3×15/20mm hex standoffs, mount
+EBB36 to the rear face of the Orbiter motor. Verify all connectors are accessible.
 
-Mount HGX Lite + motor + EBB36 assembly to EVA 3 extruder top. Secure with M3 screws.
+**Step 4: Attach main body to backplate**
 
-**Step 4: Mount dual 5015 fans**
+Mate the Apollo Lander main body to the backplate. Route all wires through body channels.
+Secure with backplate screws.
 
-Attach dual 5015 blowers to EVA 3 fan duct sections. Connect fan cables to EBB36 fan outputs.
+**Step 5: Mount dual 5015 fans**
 
-**Step 5: Mount BDsensor**
+Attach dual 5015 blowers to Apollo Lander fan duct ports. Connect fan cables to EBB36 fan outputs.
 
-Attach BDsensor to BDsensor mount bracket. Mount bracket to EVA 3 front face so sensor tip is 0-2mm offset from nozzle tip height. Measure and record x_offset and y_offset (distance from nozzle centerline to sensor centerline).
+**Step 6: Mount BDsensor**
 
-**Step 6: Mount assembled toolhead to MGN12H carriage**
+Attach BDsensor VB to `BDSensor Apollo Mount.stl` side bracket. Mount to Apollo Lander main body
+so sensor tip is 0-2mm above nozzle tip height. Measure and record x_offset and y_offset (nozzle
+centerline minus sensor centerline — positive Y if sensor is behind nozzle).
 
-Bolt EVA 3 core body to MGN12H carriage block using M3×8 screws through carriage block holes. Verify toolhead is square to the rail.
+**Step 7: Mount assembled toolhead to MGN12H carriage**
 
-**Step 7: Wire X endstop to EBB36**
+Bolt Apollo Lander backplate to MGN12H carriage block via M3×8 screws. Verify toolhead is square
+to the rail and moves freely end to end.
 
-Connect the X endstop switch signal and GND wires to the EBB36 endstop input header. Verify pin assignment against EBB36 v1.2 pinout diagram. Record pin name (e.g. `PB6`).
+**Step 8: Install X endstop on left gantry**
 
-**Step 8: Wire filament runout sensor to EBB36**
+Mount the printed adjustable endstop bracket to the left gantry 2040 upright. Insert microswitch.
+Position so the switch triggers cleanly when the toolhead reaches X=0. Wire switch signal and GND
+to SKR 3 EZ XSTOP header (pin PG6 — verify against BTT SKR 3 EZ pinout PDF).
 
-Connect filament runout sensor to the second EBB36 endstop input. Mount sensor body at a convenient location in the filament path. Record pin name.
+**Step 9: Wire filament runout sensor to EBB36**
 
-**Step 9: Route and connect umbilical**
+Connect filament runout sensor to EBB36 endstop input. Mount sensor body in the filament path.
+Record pin name (verify EBB36 v1.2 pinout).
 
-Route 4-wire CAN umbilical (24V+, GND, CAN H, CAN L) from U2C/electronics bay, through braided sleeve, to EBB36 CAN input connector. Anchor sleeve at frame with a printed or purchased cable anchor. Leave enough slack for full X travel + 10% extra.
+**Step 10: Route and connect umbilical**
 
-Connect BDsensor SDA, SCL, 5V, GND to EBB36 I2C header.
+Route 4-wire CAN umbilical (24V+, GND, CAN H, CAN L) from U2C/electronics bay through braided
+sleeve to EBB36 CAN input. Anchor at frame. Leave enough slack for full X travel + 10%.
+
+Connect BDsensor SDA, SCL, 5V, GND to EBB36 I2C header (PB8/PB9).
 
 ---
 
@@ -501,10 +519,10 @@ Create `klipper/printers/chiron/printer.cfg` with the following content. Fill in
 ```ini
 # Klipper Configuration - Anycubic Chiron
 # Board: BTT SKR 3 EZ (STM32H743, 128KiB bootloader, USB)
-# Toolhead: BTT EBB36 CAN (canbus_uuid: <YOUR_UUID>)
+# Toolhead: BTT EBB36 CAN (canbus_uuid: <YOUR_UUID>) — Apollo Lander shroud
 # Hotend: TZ E3 2.0 (V6 groove mount)
-# Extruder: HGX Lite + FYSETC 36mm NEMA14 (EBB36)
-# Probe: BDsensor-M (EBB36 I2C, mesh only — optical endstop for Z home)
+# Extruder: Orbiter 2.x (integrated LDO motor, on EBB36)
+# Probe: BDsensor VB (EBB36 I2C pins PB8/PB9, mesh only — optical endstop for Z home)
 # Bed: MIC-6 6mm, 410x430mm, Keenovo AC heater via Crydom SSR
 # Host: Raspberry Pi 5 4GB
 
@@ -561,7 +579,7 @@ dir_pin: PF12           # SKR 3 EZ M1 DIR
 enable_pin: !PF14       # SKR 3 EZ M1 EN
 microsteps: 16
 rotation_distance: 40   # Standard 2GT belt, 20T pulley
-endstop_pin: EBBCan:PB6 # X endstop on toolhead — verify EBB36 v1.2 pinout
+endstop_pin: PG6        # X endstop: frame-mounted switch on left gantry → SKR 3 EZ XSTOP — verify pin
 position_endstop: 0
 position_max: 400
 homing_speed: 50
@@ -643,8 +661,8 @@ step_pin: EBBCan:PD0
 dir_pin: EBBCan:PD1
 enable_pin: !EBBCan:PD2
 microsteps: 16
-rotation_distance: 47.088   # HGX Lite 7.5:1 gear ratio base
-gear_ratio: 7.5:1
+rotation_distance: 4.637    # Orbiter 2.x standard — calibrate with 100mm test
+                             # No gear_ratio: Orbiter 2.x planetary gearbox is integrated
 nozzle_diameter: 0.400
 filament_diameter: 1.750
 heater_pin: EBBCan:PB13
@@ -659,7 +677,7 @@ pressure_advance: 0.04      # Starting value — tune with PA tower
 
 [tmc2209 extruder]
 uart_pin: EBBCan:PA15
-run_current: 0.650
+run_current: 0.850              # Orbiter 2.x LDO 36STH20-1004AHG rated current
 stealthchop_threshold: 0
 
 # ----------------- FIRMWARE RETRACTION -----------------
@@ -900,7 +918,7 @@ QUERY_ENDSTOPS
 Expected: `x:open y:open z:open` (with no triggers active).
 
 Manually trigger each switch/sensor and re-run `QUERY_ENDSTOPS`:
-- Trigger X switch on toolhead → `x:triggered`
+- Trigger X switch on left gantry frame → `x:triggered`
 - Trigger Y switch → `y:triggered`
 - Block Z optical endstop → `z:triggered`
 
@@ -1090,8 +1108,10 @@ Before starting Phase 2, confirm:
 - [ ] Chiron leadscrew X positions measured (Task 1)
 - [ ] Bed mounting hole pattern measured (Task 1)
 - [ ] Keenovo heater ordered (Task 3 — longest lead time)
-- [ ] EVA 3 HGX Lite round-body NEMA14 top confirmed (Task 2)
-- [ ] All electronics ordered (Task 3)
+- [ ] Apollo Lander parts printed (Task 2 Step 2: main body, backplate, BDsensor mount)
+- [ ] EBB36 bracket printed and test-fit confirmed (Task 2 Step 1)
+- [ ] X endstop bracket printed (Task 2 Step 3)
+- [ ] All electronics ordered (Task 3: SKR 3 EZ, EBB36, U2C, EZ2209 ×4, Orbiter 2.x, BDsensor VB, Meanwell LRS-350-24, BTT DCDC5V, X endstop microswitch)
 
 Before starting Phase 5 (config), confirm:
 
