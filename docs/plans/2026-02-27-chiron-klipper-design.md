@@ -9,8 +9,8 @@
 
 Full conversion of an Anycubic Chiron (dead stock mainboard) to Klipper with significant
 hardware upgrades: BTT SKR 3 EZ mainboard, CAN bus toolhead, true dual-Z leveling, MGN12H
-X-axis linear rail, custom HGX Lite toolhead on EVA 3 framework, and a custom 6mm MIC-6
-aluminum bed with AC silicone heater.
+X-axis linear rail, Apollo Lander toolhead (Squirrelf3D) with Orbiter 2.x extruder, Meanwell
+LRS-350-24 PSU, and a custom 6mm MIC-6 aluminum bed with AC silicone heater.
 
 **Build volume:** 400×400×450mm (stock Chiron)
 **Bed plate dimensions:** 410×430mm (stock size retained)
@@ -24,6 +24,8 @@ aluminum bed with AC silicone heater.
 | Component | Choice | Notes |
 |---|---|---|
 | Host | Raspberry Pi 5 4GB | Same spec as Ender 7 |
+| PSU (24V) | Meanwell LRS-350-24 | 24V/14.6A/350W — replaces stock supply |
+| Pi 5 power | BTT DCDC5V module | Steps 24V → 5V/4A for Pi 5; mounts on SKR 3 EZ |
 | Mainboard | BTT SKR 3 EZ | STM32H743, EZ driver slots |
 | CAN bridge | BTT U2C v2.1 | USB-to-CAN, transparent to Klipper |
 | Toolhead board | BTT EBB36 v1.2 | Stacks behind FYSETC 36mm NEMA14 motor |
@@ -246,10 +248,46 @@ rt_sample_time: <TBD — tune after initial setup>
 
 ---
 
+## Section 7: Power Supply
+
+**24V main supply: Meanwell LRS-350-24**
+- 24V / 14.6A / 350W
+- Replaces stock Chiron PSU (generic unit, unreliable long-term)
+- 24V load breakdown (AC bed heater is separate — no DC bed load):
+
+| Load | Est. current @ 24V |
+|---|---|
+| 4× steppers (X, Y, Z, Z1) | ~4A peak |
+| TZ E3 2.0 hotend (~40W) | ~1.7A |
+| 2× 5015 part cooling fans | ~0.8A |
+| Hotend + controller fans | ~0.2A |
+| SKR 3 EZ + EBB36 + U2C | ~1.0A |
+| Pi 5 via DCDC5V module | ~1.5A |
+| **Total estimated peak** | **~9-10A** |
+
+LRS-350-24 provides 14.6A — ~40% headroom above peak load. Source from Digi-Key, Mouser,
+or reputable AliExpress (Meanwell is counterfeit-prone; verify seller).
+
+**Pi 5 power: BTT DCDC5V module**
+- Converts 24V → 5V / 4A (20W)
+- Plugs directly onto SKR 3 EZ's dedicated DCDC header
+- Pi 5 requires 5V/5A for full performance; 4A is adequate for typical print workloads
+- Alternative: power Pi 5 via a separate USB-C 5V/5A adapter off the mains
+
+**Wiring notes:**
+- LRS-350-24 mounts in electronics bay; input 120VAC (2-wire + earth ground)
+- 10A fast-blow fuse on mains input line (before PSU and SSR)
+- PSU earth ground bonded to chassis
+- 24V output: main feed to SKR 3 EZ power input; secondary feed to BTT U2C
+
+---
+
 ## Bill of Materials Summary
 
 | Item | Recommendation | Est. Cost | Lead Time |
 |---|---|---|---|
+| Meanwell LRS-350-24 | Digi-Key / Mouser / reputable AliExpress | ~$35 | Standard |
+| BTT DCDC5V module | BTT official | ~$8 | Standard |
 | BTT SKR 3 EZ | BTT official or AliExpress BTT store | ~$45 | Standard |
 | BTT EZ2209 ×4 | BTT official | ~$10 ea | Standard |
 | BTT U2C v2.1 | BTT official | ~$18 | Standard |
@@ -274,7 +312,7 @@ rt_sample_time: <TBD — tune after initial setup>
 
 ---
 
-## EVA 3 Toolhead Compatibility (Researched 2026-02-27)
+## ~~EVA 3 Toolhead Compatibility~~ (SUPERSEDED — toolhead switched to Apollo Lander)
 
 EVA 3 current release: **v3.0.2** (July 2022). Main repo: https://github.com/EVA-3D/eva-main
 
