@@ -54,9 +54,11 @@ CAN bus speed: 1Mbit/s. EBB36 UUID discovered via `canbus_query.py can0`.
 **Kinematics:** Cartesian bed-slinger. X/Y standard steppers. Dual Z (independent).
 
 **Homing:**
-- X: Stock mechanical switch, **kept on toolhead**, wired to EBB36 endstop input
-  - Klipper: `endstop_pin: EBBCan:<pin>` (verify EBB36 v1.2 pinout)
-  - Avoids routing extra long wire through umbilical
+- X: Mechanical switch **frame-mounted on left gantry upright** (X min endstop)
+  - Klipper: `endstop_pin: PG6` (SKR 3 EZ XSTOP pin — verify against pinout PDF)
+  - Wire runs up the frame to electronics bay — no endstop wire in umbilical
+  - Standard homing direction (positive_dir: false, position_endstop: 0)
+  - Apollo Lander has no toolhead endstop provision; frame mount is the correct approach
 - Y: Stock mechanical switch on frame → SKR 3 EZ endstop input
 - Z: Stock optical endstop on frame → SKR 3 EZ endstop input
   - Uses physical endstop, NOT `probe:z_virtual_endstop`
@@ -93,32 +95,34 @@ after mounting). Follow probe-vs-nozzle offset math documented in existing farm 
 - Lower 2040 extrusion: passive V-slot wheel guide (single rail, not dual)
 - Replaces stock V-slot wheel carriage entirely
 
-**Toolhead framework: EVA 3**
-EVA 3 is a modular MGN12H toolhead system with swappable front/top/side/back sections.
-Source from: `github.com/EVA-3D/eva-main` and EVA 3 Printables collection.
+**Toolhead framework: Apollo Lander (Squirrelf3D) — TZ-E3 2.0 edition**
+Self-contained shroud with integrated dual 5015 part cooling, designed specifically for the
+TZ-E3 2.0 hotend. Files are in `ApolloLander - Trianglelab - TZ-E3 2.0_2025_02_14/`.
 
-| EVA 3 Module | Choice | Notes |
+| Part | File | Notes |
 |---|---|---|
-| Front (hotend) | V6 groove mount | Confirmed EVA 3 component |
-| Top (extruder) | HGX Lite community top | Search "EVA 3 HGX Lite" on Printables |
-| Sides (cooling) | Dual 5015 duct | Confirmed EVA 3 component |
-| Back (electronics) | EBB36 back plate | Community design — search "EVA 3 EBB36" |
+| Main body | `MainBody Universal/Trianglelab - TZ-E3 2.0 - MainBody Universal - Standard.stl` | Universal fits all non-Ender5 printers |
+| Backplate | `Backplate - LinearRails - MGN12H/Orbiter Extruder/Orbiter 2.x - back motor - mgn12h - Trianglelab - TZ-E3 2.0.stl` | Back motor = motor faces rearward, cleaner umbilical routing |
+| BDsensor mount | `BDSensor Apollo Mount.stl` | Side-mount bracket for BDsensor-M |
 
-**Extruder:** HGX Lite with FYSETC 36mm round body NEMA14 motor (same as Ender 7).
-EBB36 stacks directly behind motor. ⚠️ Round body NEMA14 may need a custom collar/clamp
-for EVA 3 extruder top — verify before printing (standard EVA 3 tops assume flat-face NEMA14).
+**Extruder:** Orbiter 2.x — self-contained planetary gearbox extruder with integrated LDO motor.
+No separate motor required. Klipper config: `rotation_distance: 4.637`, no `gear_ratio` entry.
 
-**Hotend:** TZ E3 2.0 (V6 groove mount — universal compatibility).
+**Hotend:** TZ E3 2.0 (V6 groove mount — natively supported by Apollo Lander body).
 
 **Cooling:**
 - Heatbreak: always-on fan → EBB36 heater fan output
-- Part cooling: dual 5015 blowers → EBB36 fan outputs
+- Part cooling: dual 5015 blowers → EBB36 fan outputs (built into Apollo Lander body)
 
 **Sensors on toolhead (all wired to EBB36):**
-- BDsensor-M → EBB36 I2C header
-- X endstop switch → EBB36 endstop input, ref: `EBBCan:<pin>`
-- Filament runout sensor → EBB36 endstop input (separate pin from X endstop)
+- BDsensor-M → EBB36 I2C header (mounted via `BDSensor Apollo Mount.stl`)
+- Filament runout sensor → EBB36 endstop input
 - ADXL345 → built into EBB36
+- ⚠️ **X endstop NOT on toolhead** — see Section 2 (frame-mounted, wired to SKR 3 EZ)
+
+**EBB36 mounting:** ⚠️ Open item — Apollo Lander backplate has no native EBB36 mount.
+Options: printed bracket on rear of backplate, bracket clipped to MGN12H carriage, or community
+remix. Resolve before printing backplate.
 
 ---
 
@@ -252,7 +256,9 @@ rt_sample_time: <TBD — tune after initial setup>
 | BTT EBB36 v1.2 | BTT official | ~$25 | Standard |
 | BDsensor-M | BIQU/BTT | ~$40 | Standard |
 | MGN12H 500mm rail + block | Trianglelab or reputable AliExpress | ~$25 | Standard |
-| EVA 3 toolhead prints | Print in-house (PETG/ASA) | ~$5 filament | — |
+| Orbiter 2.x extruder | LDO / Trianglelab (includes integrated motor) | ~$50-60 | Standard |
+| Apollo Lander toolhead prints | Print in-house (PETG/ASA) — files in repo folder | ~$3 filament | — |
+| X endstop microswitch + bracket | Print bracket, standard microswitch | ~$2 | — |
 | MIC-6 6mm 410×430mm plate | SendCutSend + Online Metals | ~$90-120 | 1-2 weeks |
 | Keenovo AC heater 410×430mm | keenovo.com direct | ~$65-80 | **1-3 weeks** |
 | Crydom D1D40 SSR | Digi-Key / Mouser | ~$35 | Standard |
@@ -292,11 +298,19 @@ All required modules confirmed via community Printables designs:
 
 ---
 
-## Open Items (Require Physical Measurement)
+## Open Items (Require Physical Measurement or Research)
 
 1. **Z_TILT z_positions** — measure actual leadscrew X positions on your Chiron frame with calipers
-2. **BDsensor x/y offset** — measure after mounting toolhead
+2. **BDsensor x/y offset** — measure after mounting toolhead (`BDSensor Apollo Mount.stl`)
 3. **EBB36 pin assignments** — verify endstop and I2C pins against EBB36 v1.2 pinout diagram
 4. **Chiron bed mounting hole pattern** — measure before ordering MIC-6 plate
-5. **HGX Lite version** — verify V1 vs V2.0 (oblique tooth) to choose correct Printables model (776411 vs 1143215)
-6. **rt_sample_time** — set after initial printing, tune based on Chiron's speed characteristics
+5. **EBB36 mounting on Apollo Lander backplate** — no native mount; use one of these Orbiter-direct mounts (verify fit behind "back motor" backplate before printing):
+   - Primary: [EBB36 Mount with Cable Strain Relief for Orbiter v2.0 — djos_1475](https://www.printables.com/model/316984) — attaches to Orbiter motor body via M3×15/20mm hex standoffs, toolhead-agnostic
+   - With PG7 cable gland: [EBB36 mount for Orbiter 2 and PG7 Gland, Optimized — Blargedy](https://www.printables.com/model/791804)
+   - With dual fan JST splitter: [Orbiter 2/2.5 EBB36 Mount w/ Dual Fan Splitter — jinetix](https://www.printables.com/model/1211811)
+   - Fallback collection: [KayosMaker CANboard_Mounts — GitHub](https://github.com/KayosMaker/CANboard_Mounts)
+6. **X endstop bracket** — mount microswitch on left gantry 2040 upright:
+   - Primary: [Adjustable Endstop Mount for 2040 Extrusion — evil genius](https://www.printables.com/model/447865) — adjustable position for dialing in X=0 trigger point, no screws needed to retain switch
+   - Fallback: [2040 Microswitch Endstop Holder — ThrasherHT](https://www.printables.com/model/180856) — simpler fixed mount, includes STEP for modification
+7. **rt_sample_time** — set after initial printing, tune based on Chiron's speed characteristics
+8. **Orbiter 2.x motor orientation** — "back motor" backplate selected (motor faces rearward); confirm this works with EBB36 bracket solution

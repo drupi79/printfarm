@@ -48,6 +48,7 @@
     "host_type": "octoprint",
     "inherits": "",
     "is_custom_defined": "0",
+    "label_objects": "1",
     "layer_change_gcode": "",
     "long_retractions_when_cut": [
         "0"
