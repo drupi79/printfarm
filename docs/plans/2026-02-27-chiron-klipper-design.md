@@ -154,10 +154,9 @@ remix. Resolve before printing backplate.
 - Bed plate earth-grounded to chassis (ring terminal, 14AWG wire)
 - 14AWG silicone high-flex wire for all AC heater leads
 
-**Print surface:** Energetic 410×430mm textured PEI spring steel sheet + magnetic base
-- Search "Anycubic Chiron PEI spring steel" on AliExpress
-- ⚠️ Verify exact dimensions before ordering — 410×430 is non-standard
-- Textured PEI preferred: better for PLA/PETG/ASA versatility
+**Print surface:** 410×430mm double-sided textured PEI spring steel sheet + magnetic base
+- Amazon B0CSDWX8S5 — confirmed 410×430mm, double-sided textured, includes magnetic base
+- Compatible with PLA, ABS, ASA, PETG
 
 **Klipper bed config:**
 ```ini
@@ -303,7 +302,7 @@ or reputable AliExpress (Meanwell is counterfeit-prone; verify seller).
 | SSR heatsink + thermal paste | Amazon | ~$8 | Standard |
 | 10A fuse + holder | Amazon | ~$5 | Standard |
 | 130°C thermal fuse | Amazon | ~$4 | Standard |
-| Energetic PEI 410×430mm | AliExpress (verify size) | ~$30 | 2-3 weeks |
+| 410×430mm double-sided textured PEI spring steel sheet + magnetic base | Amazon — B0CSDWX8S5 | $62.09 | Standard |
 | Braided umbilical sleeve + CAN cable | Amazon / AliExpress | ~$15 | Standard |
 | M3 T-nuts, hardware | Amazon | ~$10 | Standard |
 | **Total** | | **~$450-480** | |
