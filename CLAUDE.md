@@ -34,6 +34,10 @@ Printer_Backup/
                     # Includes Pi-side files not in this repo (mainsail.cfg, KAMP_Settings.cfg,
                     # moonraker.conf, crowsnest.conf, timelapse.cfg, octoeverywhere, etc.)
                     # Reference only — do not edit these; use klipper/printers/<name>/ as source of truth
+  Sv07+_optimized/  # External printer (NOT printfarm) — optimized configs for a friend's Sovol SV07+
+  Sv08_optimized/   # External printer (NOT printfarm) — optimized configs for a friend's Sovol SV08
+                    # Both published to GitHub: drupi79/sovol-sv07plus-optimized, drupi79/sovol-sv08-optimized
+                    # These have their own self-contained macros (no shared/ includes)
 ```
 
 ## Config Include Hierarchy
