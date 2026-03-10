@@ -10,12 +10,19 @@ Configuration management for a home 3D printer farm — mostly Klipper, with one
 
 ```
 klipper/
-  shared/           # Deployed to every Klipper printer's config dir
+  shared/           # Deployed to every Klipper printer's config dir (except K1 Max)
     macros.cfg      # Utility macros: filament load/unload, preheat, PID cal, bed leveling
     start.cfg       # PRINT_START/END, PAUSE/RESUME, adaptive meshing, M600 filament change
     start_manual_purge.cfg  # Fallback PRINT_START when LINE_PURGE isn't working
   printers/
     <name>/printer.cfg   # One per Klipper printer — includes shared files, all hardware config
+    k1_max/              # K1 Max is self-contained — does NOT use shared macros
+      printer.cfg
+      gcode_macro.cfg    # K1-specific macros (Creality fan mapping, Qmode, prtouch helpers)
+      printer_params.cfg # Creality custom_macro temps, fan_feedback, product_param
+      sensorless.cfg     # Sensorless homing override (homing_override + StallGuard macros)
+                         # Helper-Script/ files (timelapse, KAMP, fans-control, etc.) are
+                         # managed by Guilouz helper script on-printer — not in this repo
 marlin/
   <name>/              # One per Marlin printer
     HARDWARE_NOTES.md  # Board, firmware version, calibration values (E-steps, offsets)
@@ -59,6 +66,8 @@ The `#*# <--- SAVE_CONFIG --->` section at the bottom of each `printer.cfg` is a
 ### Printer-Specific Macro Overrides
 No printer defines macros in `printer.cfg` — all macros live in `macros.cfg` or `start.cfg`. The shared `macros.cfg` `LOAD_FILAMENT`/`UNLOAD_FILAMENT` accept a `TEMP=` parameter (default 220) and include nozzle heat-up. `CANCEL_PRINT` parks via `_TOOLHEAD_PARK_PAUSE_CANCEL` (generic, uses `axis_maximum`). `PAUSE`/`RESUME` are in `start.cfg` and use the same generic park helper.
 
+**Exception — K1 Max:** Does not use any shared macros. All macros live in `klipper/printers/k1_max/gcode_macro.cfg`. The K1 uses Creality's custom fan-pin system (`output_pin fan0/1/2`), Qmode (quiet mode with reduced accel/current), and prtouch-specific helpers that are incompatible with shared macro assumptions.
+
 ## Printer-Specific Notes
 
 **Wanhao D6** (`klipper/printers/wanhao_d6/printer.cfg`):
@@ -82,6 +91,19 @@ No printer defines macros in `printer.cfg` — all macros live in `macros.cfg` o
 
 **Ender 3 V2 Marlin** (`marlin/ender3_v2_marlin/HARDWARE_NOTES.md`): runs MRisCoC Professional Firmware (Marlin 2.x), stock build — no `Configuration.h` in this repo. OrcaSlicer profile uses `gcode_flavor: marlin2` with real Marlin start/end gcode (G28, G29, M420 S1). Calibration values (E-steps, BLTouch offset, Z offset) are TBD — fill in HARDWARE_NOTES.md after first calibration. Max accel set to 2000mm/s² in OrcaSlicer (no input shaper in Marlin). Printable area 220×220mm (physical bed).
 
+**K1 Max** (`klipper/printers/k1_max/`): Creality K1 Max running Creality's custom Klipper fork, rooted via Guilouz Helper Script. Runs on the printer's built-in SoC (not a separate Pi). Self-contained config — does not use shared macros or start.cfg.
+- Board: GD32F303RET6 (main) + GD32F303CBT6 (nozzle MCU) + GD32E230F8P6 (leveling MCU)
+- Extruder: Creality metal extruder upgrade; `rotation_distance: 6.49` (calibrated, stock 6.9)
+- Hotend: Creality Unicorn ceramic heating block, hardened steel 0.4mm quick-swap nozzle
+- Leveling: prtouch v2 (piezo, 3-MCU) — nozzle IS the probe, no offset
+- Homing: sensorless X/Y (StallGuard), Z via prtouch
+- Extruder `run_current: 0.48A` — do NOT increase; metal extruder motor heat causes heat creep and clogs
+- Input shaper calibrated: 2hump_ei @ 39.0Hz X, zv @ 45.6Hz Y — recalibrate if toolhead mass changes
+- Pressure advance 0.04 — needs re-tuning after Unicorn nozzle install
+- Helper-Script files (timelapse, KAMP, fans-control, improved-shapers, M600-support, etc.) are managed by the Guilouz helper script on the printer — never overwrite them manually
+- `gcode_arcs resolution: 0.1` (lowered from Creality default 1.0)
+- `use_firmware_retraction: 1` in OrcaSlicer profile — requires `[firmware_retraction]` in printer.cfg (already present)
+
 ## OrcaSlicer Profiles
 
 Most printer folders have `printer_profile.json` plus process profiles: `quality.json`, `balanced.json`, `speed.json`, `print_in_place.json`.
@@ -91,7 +113,7 @@ Exceptions:
 - **Ender 3 Pro**: also has `printer_profile_alt.json`; process profiles use `"0.20mm Standard @Creality Ender3 Pro 0.4"` as parent
 - **Ender 3 V2 Twin 1** (`orca_profiles/ender3_v2_twin1/`): full set — `printer_profile.json` + process profiles; process profiles use `"0.20mm Standard @Creality Ender3 V2"` as parent; names suffixed `@Ender3V2-Twin1`
 - **Ender 3 V2 Twin 2** (`orca_profiles/ender3_v2_twin2/`): full set — `printer_profile.json` + process profiles; process profiles use `"0.20mm Standard @Creality Ender3 V2"` as parent; names suffixed `@Ender3V2-Twin2`
-- **K1 Max** (`orca_profiles/k1_max/`): Creality K1 Max 300×300 "Klipper OPTIMIZED" profile — no Klipper config in this repo, OrcaSlicer profiles only
+- **K1 Max** (`orca_profiles/k1_max/`): Creality K1 Max 300×300 "Klipper OPTIMIZED" profile; `use_firmware_retraction: 1`; process profiles suffixed `@K1Max`
 - **Wanhao D6**: full set of profiles (`printer_profile.json`, process profiles, filament profiles for PLA/PETG/ASA)
 - **Ender 7**: full set of profiles (`printer_profile.json`, process profiles, filament profiles for NuMakers PLA, Generic PLA, Generic PETG)
 - **Ender 3 V2 Marlin** (`orca_profiles/ender3_v2_marlin/`): full set — `printer_profile.json` + process profiles; `gcode_flavor: marlin2`; process profiles use `"0.20mm Standard @Creality Ender3 V2"` as parent; names suffixed `@Ender3V2-Marlin`
@@ -105,5 +127,8 @@ Copy the relevant files to the printer's Pi (typically `~/printer_data/config/` 
 # Example for Ender 7
 scp klipper/shared/macros.cfg klipper/shared/start.cfg pi@ender7:~/printer_data/config/
 scp klipper/printers/ender7/printer.cfg pi@ender7:~/printer_data/config/
+
+# K1 Max — copy all four files; do NOT touch Helper-Script/ files
+scp klipper/printers/k1_max/*.cfg root@k1max:~/printer_data/config/
 ```
 Then restart Klipper via Mainsail or `sudo systemctl restart klipper`.

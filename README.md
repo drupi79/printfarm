@@ -16,9 +16,7 @@ Klipper configs, OrcaSlicer profiles, and Marlin hardware notes for a home 3D pr
 | Wanhao D6 | Cartesian | 200×200 | BDsensor (EBB42 CAN) | Bambu X1C (HICTOP) | Pi 4 8GB |
 | K1 Max | CoreXY | 300×300 | Strain gauge | Unicorn | — |
 
-All Klipper printers run direct drive BMG or equivalent extruders, firmware retraction (0.6mm), and KAMP adaptive bed meshing. The Wanhao D6 also uses a BTT EBB42 CAN toolhead. The K1 Max is rooted via Guilouz Helper Script with Creality metal extruder and Unicorn hotend upgrades.
-
-> **OrcaSlicer profiles only (no Klipper config in this repo):** Creality K1 Max (300×300)
+All Klipper printers run direct drive BMG or equivalent extruders, firmware retraction (0.6mm), and KAMP adaptive bed meshing. The Wanhao D6 uses a BTT EBB42 CAN toolhead. The K1 Max is rooted via Guilouz Helper Script and runs its own macro set (not shared) with a Creality metal extruder and Unicorn hotend upgrade.
 
 > **Marlin (MRisCoC) — no Klipper config:** Ender 3 V2 Marlin — hardware notes in `marlin/ender3_v2_marlin/`
 
@@ -26,12 +24,17 @@ All Klipper printers run direct drive BMG or equivalent extruders, firmware retr
 
 ```
 klipper/
-  shared/          # Deployed to every Klipper printer
+  shared/          # Deployed to every Klipper printer (except K1 Max)
     macros.cfg
     start.cfg      # PRINT_START/END, PAUSE/RESUME, adaptive mesh
     start_manual_purge.cfg
   printers/
-    <name>/printer.cfg
+    <name>/printer.cfg          # Most printers: single file + shared includes
+    k1_max/                     # K1 Max: self-contained (no shared macros)
+      printer.cfg
+      gcode_macro.cfg           # K1-specific macros (fan mapping, Qmode, prtouch)
+      printer_params.cfg
+      sensorless.cfg
 marlin/
   <name>/          # Marlin printer hardware notes (no Configuration.h — stock builds)
 orca_profiles/
@@ -43,8 +46,14 @@ Printer_Backup/
 
 ## Deploying to a Printer
 
-Copy shared files and the printer-specific config to the Pi's Klipper config directory (typically `~/printer_data/config/`), then restart Klipper.
+Most printers — copy shared files and the printer-specific config:
 
 ```bash
 scp klipper/shared/*.cfg klipper/printers/<name>/printer.cfg pi@<hostname>:~/printer_data/config/
+```
+
+K1 Max — copy all four files in `klipper/printers/k1_max/` (do **not** overwrite `Helper-Script/` files managed by the Guilouz helper script):
+
+```bash
+scp klipper/printers/k1_max/*.cfg root@k1max:~/printer_data/config/
 ```
