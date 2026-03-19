@@ -10,6 +10,7 @@
     "inner_wall_acceleration": "4400",
     "inner_wall_jerk": "9",
     "inner_wall_line_width": "0.45",
+    "internal_bridge_speed": "200%",
     "internal_solid_infill_line_width": "0.45",
     "line_width": "0.45",
     "minimum_sparse_infill_area": "10",
@@ -18,6 +19,7 @@
     "outer_wall_acceleration": "4000",
     "outer_wall_jerk": "9",
     "outer_wall_line_width": "0.4",
+    "overhang_1_4_speed": "0",
     "precise_outer_wall": "0",
     "print_settings_id": "0.20mm Speed @Ender7",
     "reduce_crossing_wall": "1",
@@ -28,7 +30,7 @@
     "top_surface_jerk": "9",
     "top_surface_line_width": "0.4",
     "travel_acceleration": "4400",
-    "version": "2.3.1.10",
+    "version": "2.3.2.0",
     "wall_loops": "2",
     "wall_sequence": "outer wall/inner wall"
 }

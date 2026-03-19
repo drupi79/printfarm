@@ -4,5 +4,10 @@
     "inherits": "Generic PETG",
     "filament_type": ["PETG"],
     "filament_max_volumetric_speed": ["25"],
-    "version": "2.3.1.10"
+    "fan_min_speed": ["25"],
+    "fan_max_speed": ["50"],
+    "slow_down_layer_time": ["12"],
+    "slow_down_min_speed": ["20"],
+    "reduce_fan_stop_start_freq": ["1"],
+    "version": "2.3.2.0"
 }

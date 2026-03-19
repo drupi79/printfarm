@@ -211,7 +211,7 @@
     "support_chamber_temp_control": "0",
     "support_multi_bed_types": "0",
     "template_custom_gcode": "",
-    "thumbnails": "48x48/PNG, 300x300/PNG",
+    "thumbnails": "80x80/PNG, 300x300/PNG",
     "thumbnails_format": "PNG",
     "time_cost": "0",
     "time_lapse_gcode": "",
@@ -221,7 +221,7 @@
     "upward_compatible_machine": [],
     "use_firmware_retraction": "1",
     "use_relative_e_distances": "1",
-    "version": "2.1.1.0",
+    "version": "2.3.2.0",
     "wipe": [
         "0"
     ],

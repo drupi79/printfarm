@@ -5,6 +5,12 @@
     "enable_pressure_advance": [
         "1"
     ],
+    "fan_max_speed": [
+        "50"
+    ],
+    "fan_min_speed": [
+        "25"
+    ],
     "filament_max_volumetric_speed": [
         "12"
     ],
@@ -33,5 +39,14 @@
     "pressure_advance": [
         "0.05"
     ],
-    "version": "2.3.1.10"
+    "reduce_fan_stop_start_freq": [
+        "1"
+    ],
+    "slow_down_layer_time": [
+        "12"
+    ],
+    "slow_down_min_speed": [
+        "20"
+    ],
+    "version": "2.3.2.0"
 }

@@ -221,7 +221,7 @@
     "upward_compatible_machine": [],
     "use_firmware_retraction": "1",
     "use_relative_e_distances": "1",
-    "version": "2.3.1.10",
+    "version": "2.3.2.0",
     "wipe": [
         "1"
     ],
