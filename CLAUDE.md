@@ -76,6 +76,7 @@ No printer defines macros in `printer.cfg` — all macros live in `macros.cfg` o
 
 **Wanhao D6** (`klipper/printers/wanhao_d6/printer.cfg`):
 - Board: BTT SKR Mini E3 v3.0; toolhead: BTT EBB42 on CAN bus (`canbus_uuid: 799e85ba0b4e`)
+- Toolhead design: Emil Saloheimo (Printables) — BMG extruder + Bambu Lab hotend mount; modified by drupi79 to add CAN bus (EBB42)
 - Hotend: HICTOP Bambu Lab X1 Carbon Assembly, hardened steel 0.4mm nozzle (`sensor_type: Generic 3950`)
 - BDsensor on EBBCan pins (x_offset=0, y_offset=-13); BMG direct drive (gear_ratio 57:11)
 - Uses shared `start.cfg`/`macros.cfg` (replaced the D6's own versions)
