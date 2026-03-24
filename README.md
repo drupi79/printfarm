@@ -16,7 +16,7 @@ Klipper configs, OrcaSlicer profiles, and Marlin hardware notes for a home 3D pr
 | Wanhao D6 | Cartesian | 200×200 | BDsensor (EBB42 CAN) | Bambu X1C (HICTOP) | Pi 4 8GB |
 | K1 Max | CoreXY | 300×300 | Strain gauge | Unicorn | — |
 
-All Klipper printers run direct drive BMG or equivalent extruders, firmware retraction (0.6mm), and KAMP adaptive bed meshing. The Ender 7 uses an Apollo Mini (SquirrelF3D) toolhead with TZ E3 2.0 hotend. The Wanhao D6 uses a BTT EBB42 CAN toolhead. The K1 Max is rooted via Guilouz Helper Script and runs its own macro set (not shared) with a Creality metal extruder and Unicorn hotend upgrade.
+All Klipper printers run direct drive BMG or equivalent extruders, firmware retraction (0.6mm), and KAMP adaptive bed meshing. The Ender 3 V2 twins and Ender 7 use Apollo Mini toolheads (SquirrelF3D, 4010 blowers); the Ender 3 Pro and Ender 3 OG use Apollo Lander toolheads (SquirrelF3D, 5015 blowers). The Wanhao D6 uses a BTT EBB42 CAN toolhead. The K1 Max is rooted via Guilouz Helper Script and runs its own macro set (not shared) with a Creality metal extruder and Unicorn hotend upgrade.
 
 > **Marlin (MRisCoC) — no Klipper config:** Ender 3 V2 Marlin — hardware notes in `marlin/ender3_v2_marlin/`
 

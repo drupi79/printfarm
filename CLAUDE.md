@@ -90,10 +90,16 @@ No printer defines macros in `printer.cfg` — all macros live in `macros.cfg` o
 - `rotation_distance: 5.7` for HGX Lite — verified by 100mm extrusion test
 
 **Ender 3 V2 Twins**: both run on a shared Intel NUC (two Klipper instances). Print bed is 220×220 — `position_max` is intentionally set to X=250, Y=235 so the BLTouch probe can reach all bed screws for `screws_tilt_adjust`. Do not reduce these limits. Twin 1 serial path uses `by-path` (USB port-specific); Twin 2 uses `by-id`. If the NUC is re-cabled, Twin 1's serial path will break — Twin 2 is unaffected.
+- Toolhead: Apollo Mini (SquirrelF3D) — 4010 blower parts cooling; BLTouch x_offset: -45, y_offset: -7
 
 **Neptune 3 Max**: uses stock inductive proximity sensor (configured as `[probe]`, not `[bltouch]`). Includes `[include timelapse.cfg]` which the Ender configs don't. `pwm_cycle_time: 0.020` (50Hz) — change to `0.0166` for 60Hz grid if bed heater causes lamp flicker.
 
 **Ender 3 Pro** board 4.2.7: uses UART communication (not USB direct). Firmware must be compiled for UART. Print bed is 220×220 — `position_max` is intentionally set to X=250, Y=240 so the BLTouch probe can reach all four bed screws for `screws_tilt_adjust`. Do not reduce these limits.
+- Toolhead: Apollo Lander (SquirrelF3D) — 5015 blower parts cooling; BLTouch x_offset: -53.5, y_offset: -10.5
+
+**Ender 3 OG** (`klipper/printers/ender3_og/printer.cfg`), host: Raspberry Pi 3:
+- Toolhead: Apollo Lander (SquirrelF3D) — 5015 blower parts cooling; BLTouch x_offset: -53.5, y_offset: -10.5
+- Board: 4.2.7 (STM32F103); extruder: BMG direct drive; hotend: Spider V3 Pro
 
 **Ender 3 V2 Marlin** (`marlin/ender3_v2_marlin/HARDWARE_NOTES.md`): runs MRisCoC Professional Firmware (Marlin 2.x), stock build — no `Configuration.h` in this repo. OrcaSlicer profile uses `gcode_flavor: marlin2` with real Marlin start/end gcode (G28, G29, M420 S1). Calibration values (E-steps, BLTouch offset, Z offset) are TBD — fill in HARDWARE_NOTES.md after first calibration. Max accel set to 2000mm/s² in OrcaSlicer (no input shaper in Marlin). Printable area 220×220mm (physical bed).
 
