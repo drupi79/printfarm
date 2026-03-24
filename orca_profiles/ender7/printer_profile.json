@@ -151,8 +151,8 @@
     "pellet_modded_printer": "0",
     "preferred_orientation": "0",
     "printable_area": [
-        "5x5",
-        "255x5",
+        "5x35",
+        "255x35",
         "255x255",
         "5x255"
     ],

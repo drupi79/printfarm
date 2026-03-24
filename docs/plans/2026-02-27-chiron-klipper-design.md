@@ -133,9 +133,16 @@ remix. Resolve before printing backplate.
 **Plate:** MIC-6 cast aluminum tooling plate, 6mm thick, 410×430mm
 - NOT regular 6061 (warps under thermal cycling)
 - Source: SendCutSend (upload DXF with hole pattern) or Online Metals cut + local shop for drilling
-- Verify Chiron mounting hole pattern before ordering — 6mm plate is thicker than stock,
-  may need longer bed spring standoffs
 - Kinematic or clearance-hole mounting to allow ~0.8mm thermal expansion at ABS temps
+
+**Confirmed mounting hole pattern** (from original Chiron bed drawing, 2026-03-20):
+- Overall plate: 430mm (Y) × 410mm (X) × 6mm thick
+- 4× countersunk holes: Ø5.8mm pilot × 5.5mm deep, Ø11.2mm × 90° countersink
+- Hole spacing: 365mm X center-to-center, 392mm Y center-to-center
+- Edge margins: 22.5mm (X), 19mm (Y) — adequate for aluminum; minimum for graphite
+- ⚠️ 410×410 plate was evaluated and rejected — 9mm Y margins with fixed 392mm hole spacing leaves only 3.4mm beyond countersink edge; too thin for graphite, marginal for aluminum
+
+**Bed material decision (2026-03-20):** MIC-6 aluminum confirmed. Graphite (R3men) is a viable future upgrade if large ASA prints require better flatness at temperature. Glass-ceramic (Robax/Ceran) was evaluated and rejected — thermal conductivity of ~1.6 W/m·K makes it an insulator, incompatible with heat-spreader role under PEI, and cannot be drilled for mounting.
 
 **Heater:** Keenovo custom AC silicone heater, 410×430mm, 750-1000W, 120VAC
 - Adhesive-backed (bonded directly to plate)
@@ -155,7 +162,7 @@ remix. Resolve before printing backplate.
 - 14AWG silicone high-flex wire for all AC heater leads
 
 **Print surface:** 410×430mm double-sided textured PEI spring steel sheet + magnetic base
-- Amazon B0CSDWX8S5 — confirmed 410×430mm, double-sided textured, includes magnetic base
+- Amazon B0CSDWX8S5 — confirmed in stock 2026-03-20, 410×430mm, double-sided textured, includes magnetic base
 - Compatible with PLA, ABS, ASA, PETG
 
 **Klipper bed config:**
@@ -296,18 +303,33 @@ or reputable AliExpress (Meanwell is counterfeit-prone; verify seller).
 | Orbiter 2.x extruder | LDO / Trianglelab (includes integrated motor) | ~$50-60 | Standard |
 | Apollo Lander toolhead prints | Print in-house (PETG/ASA) — files in repo folder | ~$3 filament | — |
 | X endstop microswitch + bracket | Print bracket, standard microswitch | ~$2 | — |
-| MIC-6 6mm 410×430mm plate | SendCutSend + Online Metals | ~$90-120 | 1-2 weeks |
-| Keenovo AC heater 410×430mm | keenovo.com direct | ~$65-80 | **1-3 weeks** |
-| Crydom D1D40 SSR | Digi-Key / Mouser | ~$35 | Standard |
-| SSR heatsink + thermal paste | Amazon | ~$8 | Standard |
-| 10A fuse + holder | Amazon | ~$5 | Standard |
-| 130°C thermal fuse | Amazon | ~$4 | Standard |
-| 410×430mm double-sided textured PEI spring steel sheet + magnetic base | Amazon — B0CSDWX8S5 | $62.09 | Standard |
-| Braided umbilical sleeve + CAN cable | Amazon / AliExpress | ~$15 | Standard |
-| M3 T-nuts, hardware | Amazon | ~$10 | Standard |
-| **Total** | | **~$450-480** | |
+| MIC-6 6mm 410×430mm plate | SendCutSend (holes included, DXF required) or onlinemetals.com (raw) | ~$165-235 | 1-2 weeks |
+| Keenovo AC heater 410×430mm | keenovo.com direct | ~$135-155 shipped | **2-4 weeks** |
+| Crydom D1D40 SSR | Digi-Key (CC1112-ND) / Mouser (537-D1D40) | ~$28-35 | Standard |
+| SSR heatsink + thermal paste | Amazon | ~$13-20 | Standard |
+| 10A fuse + holder | Amazon | ~$8-12 | Standard |
+| 130°C thermal fuse ×2 | Amazon / Digi-Key (Littelfuse 177) | ~$8-12 | Standard |
+| 410×430mm double-sided textured PEI spring steel sheet + magnetic base | Amazon — B0CSDWX8S5 (confirmed in stock 2026-03-20) | ~$62 | Standard |
+| 14AWG silicone wire red+black 1m each | Amazon (NorthPada/BNTECHGO) | ~$10-15 | Standard |
+| Braided umbilical sleeve 4-6mm + 24AWG shielded CAN cable | Amazon | ~$15-25 | Standard |
+| M3 T-nuts (50+), M3×8 SHCS (50+), misc hardware | Amazon | ~$15-22 | Standard |
+| BC337 transistors + 1kΩ resistors (SSR buffer) | Amazon / Digi-Key | ~$9-14 | Standard |
+| Omron V-lever microswitch (X endstop) | Amazon / Digi-Key | ~$8-12 | Standard |
+| BTT DCDC5V module | BTT AliExpress / West3D | ~$8-10 | Standard |
+| BTT SKR 3 EZ | BTT AliExpress / West3D | ~$35-42 | Standard |
+| BTT EZ2209 ×5 (4+spare) | BTT AliExpress / West3D | ~$35-43 | Standard |
+| BTT U2C v2.1 | BTT AliExpress / West3D | ~$14-18 | Standard |
+| BTT EBB36 v1.2 | BTT AliExpress / West3D | ~$30-38 | Standard |
+| BDsensor VB | pandapi3d.com (NOT BDsensor-M) | ~$33 shipped | Standard |
+| MGN12H 500mm rail + block | Trianglelab AliExpress / Amazon | ~$18-28 | Standard |
+| Orbiter 2.x extruder (LDO integrated motor) | Trianglelab AliExpress / West3D / Fabreeko | ~$45-70 | Standard |
+| Meanwell LRS-350-24 PSU | Digi-Key (1866-4380-ND) / Mouser (709-LRS-350-24) | ~$38-42 | Standard |
+| Apollo Lander toolhead prints | Print in-house (PETG/ASA) — files in repo | ~$3 filament | — |
+| X endstop bracket print | Print in-house | ~$0.50 filament | — |
+| **Total (AliExpress BTT)** | | **~$820-1,000** | |
+| **Total (West3D BTT, domestic)** | | **~$845-1,030** | |
 
-> ⚠️ Order Keenovo heater first — longest lead time in the build.
+> ⚠️ Order Keenovo heater first — 2-4 week lead time is the critical path. Full pricing breakdown in `docs/chiron_parts_pricelist.xlsx`.
 
 ---
 
@@ -340,7 +362,7 @@ All required modules confirmed via community Printables designs:
 1. **Z_TILT z_positions** — measure actual leadscrew X positions on your Chiron frame with calipers
 2. **BDsensor x/y offset** — measure after mounting toolhead (`BDSensor Apollo Mount.stl`)
 3. **EBB36 pin assignments** — verify endstop and I2C pins against EBB36 v1.2 pinout diagram
-4. **Chiron bed mounting hole pattern** — measure before ordering MIC-6 plate
+4. **Chiron bed mounting hole pattern** — ✅ CONFIRMED from original Chiron bed drawing: 365mm × 392mm center-to-center, 4× Ø5.8×5.5mm pilot + Ø11.2×90° countersink
 5. **EBB36 mounting on Apollo Lander backplate** — no native mount; use one of these Orbiter-direct mounts (verify fit behind "back motor" backplate before printing):
    - Primary: [EBB36 Mount with Cable Strain Relief for Orbiter v2.0 — djos_1475](https://www.printables.com/model/316984) — attaches to Orbiter motor body via M3×15/20mm hex standoffs, toolhead-agnostic
    - With PG7 cable gland: [EBB36 mount for Orbiter 2 and PG7 Gland, Optimized — Blargedy](https://www.printables.com/model/791804)
