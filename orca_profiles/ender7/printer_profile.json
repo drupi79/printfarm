@@ -59,7 +59,7 @@
         "5000"
     ],
     "machine_max_acceleration_extruding": [
-        "4400",
+        "3200",
         "20000"
     ],
     "machine_max_acceleration_retracting": [
@@ -71,11 +71,11 @@
         "20000"
     ],
     "machine_max_acceleration_x": [
-        "4400",
+        "3200",
         "20000"
     ],
     "machine_max_acceleration_y": [
-        "4400",
+        "3200",
         "20000"
     ],
     "machine_max_acceleration_z": [
