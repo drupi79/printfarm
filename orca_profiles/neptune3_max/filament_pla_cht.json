@@ -1,0 +1,36 @@
+{
+    "compatible_printers": [
+        "Elegoo Neptune 3 Max - Klipper OPTIMIZED (0.6mm CHT)"
+    ],
+    "enable_pressure_advance": [
+        "1"
+    ],
+    "fan_min_speed": [
+        "60"
+    ],
+    "filament_max_volumetric_speed": [
+        "35"
+    ],
+    "filament_settings_id": [
+        "PLA @Neptune3Max CHT"
+    ],
+    "from": "User",
+    "hot_plate_temp": [
+        "65"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "65"
+    ],
+    "inherits": "Generic PLA @Elegoo",
+    "name": "PLA @Neptune3Max CHT",
+    "nozzle_temperature": [
+        "215"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "215"
+    ],
+    "slow_down_layer_time": [
+        "0"
+    ],
+    "version": "2.3.2.0"
+}
