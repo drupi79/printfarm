@@ -146,6 +146,17 @@ scp klipper/printers/k1_max/*.cfg root@k1max:~/printer_data/config/
 ```
 Then restart Klipper via Mainsail or `sudo systemctl restart klipper`.
 
+## Claude Code Agents
+
+Project subagents live in `.claude/agents/`. Each one carries the repo rules above (SAVE_CONFIG, probe vs nozzle coordinates, locked values, K1 Max self-contained).
+
+| Agent | Use for | Edits files? |
+|-------|---------|--------------|
+| `klipper-config` | Changing or reviewing `printer.cfg` / shared macros; merging configs pulled back from a printer. Reports the affected printers, the `scp` command, and any recalibration needed. | Yes |
+| `orca-profile` | Creating or editing OrcaSlicer profiles. Enforces the naming suffixes, unique `name`s, and `compatible_printers`/`inherits` links; checks the profile against the Klipper limits. | Yes |
+| `farm-auditor` | Consistency check across the repo before deploying or after a batch of changes (Klipper ↔ Orca ↔ docs). Findings are grouped by severity. | No (read-only) |
+| `print-researcher` | Researching hardware, firmware and troubleshooting questions with sources, tied to the farm's actual hardware. | No |
+
 ## Pending Investigation: TZ E3 2.0 PTFE Stub Collar
 
 The TZ E3 2.0 hotend kit ships with two PTFE tube retention options:
