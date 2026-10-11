@@ -160,6 +160,7 @@ Project subagents live in `.claude/agents/`. Each one carries the repo rules abo
 | `orca-profile` | Creating or editing OrcaSlicer profiles. Enforces the naming suffixes, unique `name`s, and `compatible_printers`/`inherits` links; checks the profile against the Klipper limits. | Yes |
 | `farm-auditor` | Consistency check across the repo before deploying or after a batch of changes (Klipper ↔ Orca ↔ docs). Findings are grouped by severity. | No (read-only) |
 | `print-researcher` | Researching hardware, firmware and troubleshooting questions with sources, tied to the farm's actual hardware. | No |
+| `deep-researcher` | Long multi-source research done by delegating to the Antigravity CLI (`agy`, Gemini), then checking the key claims against their sources. Runs take about 5–30 min. Use print-researcher for quick lookups. | No |
 
 ## Pending Investigation: TZ E3 2.0 PTFE Stub Collar
 
