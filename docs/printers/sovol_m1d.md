@@ -1,6 +1,6 @@
 # Sovol M1D — preliminary notes
 
-**Status:** Kickstarter-backed (early backer, Advanced/Essential edition not recorded yet). Not in the farm yet. Sovol's store estimates shipping late December 2026 to early January 2027.
+**Status:** Kickstarter-backed as an early backer: **Essential edition** (open frame, no chamber heater). Sovol has committed to selling the enclosure separately later; a DIY enclosure is another option. Not in the farm yet. Sovol's store estimates shipping late December 2026 to early January 2027.
 **Researched:** 2026-10-11, from pre-release manufacturer and press info. Everything here is unverified until the printer arrives, and specs may change before shipping.
 
 ## Specs (manufacturer-stated)
@@ -28,10 +28,11 @@
 ## Expected fit with the farm
 - **Treat it as self-contained, like the K1 Max and SparkX i7.** Toolchanging, IDEX modes, the camera XY calibration and the eddy probe will rely on Sovol's own macros, so it shouldn't use `klipper/shared/`. PRINT_START will probably have a different name and different parameters.
 - Sovol eddy probes have needed Sovol's patched `sensor_ldc1612.c`; mainline Klipper had I2C issues with the SV08 eddy kit (see eddy-ng issue #105 below). **Don't move it to mainline Klipper** until the firmware has been reviewed.
+- Essential is open-frame. Plan for PLA, PETG, TPU and PVA; Sovol only recommends ABS, ASA, PA and PC with the heated enclosure. For those materials, use the K1 Max (enclosed) for now.
 - Orca: start from Sovol's system profile. Multi-tool profiles (7 extruders, IDEX copy/mirror) are new territory for this repo.
 
 ## On arrival checklist
-- [ ] Record the edition (Essential or Advanced), firmware version, mainboard/SoC, host hostname and IP
+- [ ] Record the firmware version, mainboard/SoC, host hostname and IP
 - [ ] Confirm probe type and offsets, extruder type and rotation_distance
 - [ ] Pull the stock config into `Printer_Backup/sovol_m1d/` before changing anything
 - [ ] Create `klipper/printers/sovol_m1d/` (self-contained) and `orca_profiles/sovol_m1d/`
