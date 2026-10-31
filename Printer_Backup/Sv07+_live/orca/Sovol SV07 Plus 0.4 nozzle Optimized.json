@@ -1,0 +1,48 @@
+{
+	"default_print_profile": "0.20mm Balanced @SovolSV07Plus",
+	"from": "User",
+	"inherits": "Sovol SV07 Plus 0.4 nozzle",
+	"machine_end_gcode": "PRINT_END ; start.cfg\nSAVE_VARIABLE VARIABLE=was_interrupted VALUE=False ; clear Sovol PLR state\nRUN_SHELL_COMMAND CMD=clear_plr\nclear_last_file",
+	"machine_max_acceleration_extruding": [
+		"12000",
+		"1250"
+	],
+	"machine_max_acceleration_retracting": [
+		"12000",
+		"1250"
+	],
+	"machine_max_acceleration_travel": [
+		"12000",
+		"1250"
+	],
+	"machine_max_acceleration_x": [
+		"12000",
+		"960"
+	],
+	"machine_max_acceleration_y": [
+		"12000",
+		"960"
+	],
+	"machine_max_acceleration_z": [
+		"1000",
+		"200"
+	],
+	"machine_max_junction_deviation": [
+		"0",
+		"0"
+	],
+	"machine_start_gcode": "SAVE_VARIABLE VARIABLE=was_interrupted VALUE=True ; Sovol power-loss recovery flag\nG28 ; home all\nZ_TILT_ADJUST ; level dual Z (shared start.cfg does not)\nG28 Z ; re-home Z after tilt — PRINT_START's _CHOME then skips homing\nPRINT_START EXTRUDER_TEMP=[nozzle_temperature_initial_layer] BED_TEMP=[bed_temperature_initial_layer_single] ; start.cfg: heat, KAMP mesh, Smart_Park, LINE_PURGE",
+	"name": "Sovol SV07 Plus 0.4 nozzle Optimized",
+	"print_host": "192.168.1.200",
+	"printer_extruder_id": [
+		"1"
+	],
+	"printer_extruder_variant": [
+		"Direct Drive Standard"
+	],
+	"printer_notes": "Uses printfarm shared start.cfg + macros.cfg + KAMP on the printer. Z_TILT and Sovol PLR handled in start/end gcode.",
+	"printer_settings_id": "Sovol SV07 Plus 0.4 nozzle Optimized",
+	"thumbnails": "48x48/PNG, 300x300/PNG",
+	"use_firmware_retraction": "1",
+	"version": "2.4.0.1"
+}
