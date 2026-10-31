@@ -35,6 +35,8 @@ Printer_Backup/
                     # moonraker.conf, crowsnest.conf, timelapse.cfg, octoeverywhere, etc.)
                     # Reference only — do not edit these; use klipper/printers/<name>/ as source of truth
   Sv07+_optimized/  # External printer (NOT printfarm) — optimized configs for a friend's Sovol SV07+
+  Sv07+_live/       # Live SV07+ at 192.168.1.200 — stock Sovol printer.cfg + shared start.cfg/macros.cfg + KAMP,
+                    # Moonraker metadata patch, Orca Cloud presets. Different from Sv07+_optimized — read its README
   Sv08_optimized/   # External printer (NOT printfarm) — optimized configs for a friend's Sovol SV08
                     # Both published to GitHub: drupi79/sovol-sv07plus-optimized, drupi79/sovol-sv08-optimized
                     # These have their own self-contained macros (no shared/ includes)

@@ -1,0 +1,19 @@
+--- metadata.py.bak-20261031	2026-10-31 21:05:04.773748360 +0000
++++ metadata.py	2026-10-31 21:05:30.533748372 +0000
+@@ -332,6 +332,7 @@
+             'SliCR-3D': r"SliCR-3D\s(.*)\son",
+             'BambuStudio': r"BambuStudio[^ ]*\s(.*)\n",
+             'A3dp-Slicer': r"A3dp-Slicer\s(.*)\son",
++            'OrcaSlicer': r"OrcaSlicer\s(.*)\son",  # added 2026-10-31 (upstream alias; this build predates Orca)
+         }
+         for name, expr in aliases.items():
+             match = re.search(expr, data)
+@@ -973,7 +974,7 @@
+                     'slicer': name,
+                     'slicer_version': match.group(1)
+                 }
+-            log_to_stderr(f"match: {match} 'slicer': {name}, 'slicer_version': {match.group(1)}")
++            log_to_stderr(f"match: {match} 'slicer': {name}, 'slicer_version': {match.group(1) if match else None}")  # 2026-10-31: guard None (crashed every non-Sovol file)
+         return None
+ 
+     def has_objects(self) -> bool:
