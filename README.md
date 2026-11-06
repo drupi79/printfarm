@@ -24,6 +24,8 @@ All Klipper printers run direct drive BMG or equivalent extruders, firmware retr
 
 > **Marlin (MRisCoC) — no Klipper config:** Ender 3 V2 Marlin — hardware notes in `marlin/ender3_v2_marlin/`
 
+> **SparkX i7 — no config in this repo yet:** there is no `klipper/printers/sparkx_i7/` or `orca_profiles/` folder for it.
+
 ## Structure
 
 ```
@@ -56,9 +58,8 @@ Most printers — copy shared files and the printer-specific config:
 scp klipper/shared/*.cfg klipper/printers/<name>/printer.cfg pi@<hostname>:~/printer_data/config/
 ```
 
-K1 Max and SparkX i7 — copy all files in the printer's folder (do **not** overwrite `Helper-Script/` files managed by the Guilouz helper script):
+K1 Max — copy all files in the printer's folder (do **not** overwrite `Helper-Script/` files managed by the Guilouz helper script):
 
 ```bash
 scp klipper/printers/k1_max/*.cfg root@k1max:~/printer_data/config/
-scp klipper/printers/sparkx_i7/*.cfg root@sparkxi7:~/printer_data/config/
 ```
