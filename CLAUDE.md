@@ -119,7 +119,7 @@ Macros live in `macros.cfg` or `start.cfg`, with one deliberate override: the En
 - `gcode_arcs resolution: 0.1` (lowered from Creality default 1.0)
 - `use_firmware_retraction: 1` in OrcaSlicer profile — requires `[firmware_retraction]` in printer.cfg (already present)
 
-**Sovol M1D** (preliminary, Kickstarter **Essential** edition (open frame; enclosure may be bought later or built DIY), expected late Dec 2026 to early Jan 2027): Cartesian IDEX ("DualX"; Sovol confirmed Cartesian in a livestream) with a fixed left head plus a 6-head toolchanger on the right carriage (7 tools), 300×300×350, eddy-current probe, camera-based XY offsets, Klipper (open-source release promised), Sovol OrcaSlicer fork. All values come from pre-release info and are unverified. Details, sources and an arrival checklist are in `docs/printers/sovol_m1d.md`.
+**Sovol M1D** (preliminary, Kickstarter **Essential** edition (open frame; enclosure may be bought later or built DIY), expected ~early 2027): Cartesian IDEX ("DualX"; Sovol confirmed Cartesian in a livestream) with a fixed left head plus a 6-head toolchanger on the right carriage (7 tools), 300×300×350, eddy-current probe, camera-based XY offsets, Klipper (open-source release promised), Sovol OrcaSlicer fork. All values come from pre-release info and are unverified. Details, sources and an arrival checklist are in `docs/printers/sovol_m1d.md`.
 - No `klipper/printers/` or `orca_profiles/` folder yet. The missing folders are expected; don't create configs from the spec sheet.
 - Plan to treat it as **self-contained** (like the K1 Max), not using `klipper/shared/`. Back up the stock config to `Printer_Backup/sovol_m1d/` before changing anything.
 
