@@ -1,12 +1,16 @@
 # Sovol M1D — preliminary notes
 
-**Status:** Kickstarter-backed as an early backer: **Essential edition** (open frame, no chamber heater). Sovol has committed to selling the enclosure separately later; a DIY enclosure is another option. Not in the farm yet. Sovol's store estimates shipping late December 2026 to early January 2027. That is a slip of about a month: on 2026-09-28 Sovol quoted late November to mid-December. The Kickstarter backer ship date is unconfirmed, because the backer updates need a logged-in browser.
-**Researched:** 2026-10-11, from pre-release manufacturer and press info. Everything here is unverified until the printer arrives, and specs may change before shipping.
+**Status:** Kickstarter-backed as an early backer: **Essential edition** (open frame, no chamber heater). Sovol has committed to selling the enclosure separately later; a DIY enclosure is another option. Not in the farm yet. Sovol's store estimates shipping late December 2026 to early January 2027 for preorders, but no backer delivery date has been published.
+
+**Backer shipping:** the original estimate was November 2026. Sovol's latest estimate (2026-09-30) has later batches reaching destination countries in mid-to-late December 2026, with delivery after customs. Latest backer update: 2026-10-16. Details: [Kickstarter updates](https://www.kickstarter.com/projects/sovol/sovol-m1d-idex-tool-changing-3d-printer/posts) (backer login needed).
+
+**Researched:** 2026-10-11, rechecked 2026-11-05, from pre-release manufacturer and press info plus the Kickstarter updates and FAQ. Everything here is unverified until the printer arrives, and specs may change before shipping.
 
 ## Specs (manufacturer-stated)
 
 | Item | Value |
 |------|-------|
+| Price (Essential) | Store preorder $1,499 (reported 2026-10-21; live store page not checked). Kickstarter Super Early Bird $1,299; VIP backers who got the $100 refund paid an effective $1,199. Shipping and taxes are extra. |
 | Architecture | "DualX": IDEX with two independent carriages. The left carriage is a fixed head; the right carriage is a toolchanger with 6 docked heads (7 tools total). Swap time is about 5 s, which per reviewers excludes travel, wipe and prime. The lock is a patented, motor-driven, all-metal auto-grip. Keep the dock free of debris, or heads won't seat (Sovol maintenance guide). Docked heads preheat to printing temperature (sovol.uk). |
 | Kinematics | **Cartesian with IDEX.** Sovol confirmed this in a livestream (reported by the owner, 2026-10-11). A china-gadgets.de spec table that says CoreXY is wrong. |
 | Build volume | Single head / right-side 6-head switching: 300×300×350 mm. All 7 heads: 240×300×350 mm. Copy: 178×300×350 ×2. Mirror: 138×300×350 ×2. |
@@ -19,23 +23,23 @@
 | Filament system | 6-channel auto feed: runout, clog and tangle detection, power-loss recovery. 1.75 mm. |
 | Cooling | 3010 hotend fan per head; 5020 part-cooling blower |
 | UI | 5" touchscreen plus a web dashboard (UI not named). Chamber camera (1280×720) with timelapse; AI failure detection is due in a later software update. |
-| Firmware | Klipper-based. The 2026-07-24 press release promises to open-source the "Klipper-based firmware configurations" with documentation; the store page says "Fully Open-Source", while the FAQ says "will" be opened. Klipper version/fork unknown. No M1D repo exists under github.com/Sovol3d yet (checked 2026-10-11). |
+| Firmware | Klipper-based. The 2026-07-24 press release promises to open-source the "Klipper-based firmware configurations" with documentation; the store page says "Fully Open-Source", while the FAQ says "will" be opened. Klipper version/fork unknown. The Kickstarter FAQ says files and docs will be published progressively on the Sovol Wiki and GitHub after the official release. No M1D repo exists under github.com/Sovol3d yet (checked 2026-11-05). |
 | Mainboard / host | Not published. 32 GB eMMC and a 4010 mainboard fan (CNX), which suggests a built-in Linux host rather than a Pi. |
-| Slicer | OrcaSlicer. Sovol ships a fork (github.com/Sovol3d/Sovol-OrcaSlicer, latest release v2.3.0.4 from 2025-09). No M1D profile exists in Sovol's fork or upstream Orca yet (checked 2026-10-11). Sovol's setup guide says to pick the M1D printer profile *first* (switching later resets filament and color assignments), map one filament per toolhead, then choose Multi, Copy or Mirror mode. The two heads print at the same time only in Copy and Mirror. |
+| Slicer | OrcaSlicer. Sovol ships a fork (github.com/Sovol3d/Sovol-OrcaSlicer, latest release v2.3.0.4 from 2025-09). No M1D profile exists in Sovol's fork or upstream Orca yet (checked 2026-11-05). Sovol's setup guide says to pick the M1D printer profile *first* (switching later resets filament and color assignments), map one filament per toolhead, then choose Multi, Copy or Mirror mode. The two heads print at the same time only in Copy and Mirror. |
 | Power | 115–240 VAC; PSUs 150 W + 300 W |
 | Package | Printer 682×682×461 mm, 39.3 kg; enclosure kit 592×592×215 mm, 12 kg |
 
 ## Open questions
 - Mainboard, SoC and eddy sensor chip; when Sovol publishes the M1D repo and under what licence
 - Spare toolhead price and nozzle system
-- Backer ship date (check the Kickstarter Updates tab)
-- How reliably toolhead swaps repeat over thousands of cycles, and ooze from preheated docked heads. No hands-on reviews exist yet; all coverage is pre-order analysis.
+- Delivery date for this pledge (no per-batch schedule published as of Update #6, 2026-10-16)
+- How reliably toolhead swaps repeat over thousands of cycles, and ooze from preheated docked heads. No hands-on reviews found as of 2026-11-05; coverage is pre-order analysis.
 
 ## Expected fit with the farm
 - **Treat it as self-contained, like the K1 Max and SparkX i7.** Toolchanging, IDEX modes, the camera XY calibration and the eddy probe will rely on Sovol's own macros, so it shouldn't use `klipper/shared/`. PRINT_START will probably have a different name and different parameters.
 - Sovol eddy probes have needed Sovol's patched `sensor_ldc1612.c`; mainline Klipper had I2C issues with the SV08 eddy kit (see eddy-ng issue #105 below). **Don't move it to mainline Klipper** until the firmware has been reviewed.
 - Essential is open-frame. Plan for PLA, PETG, TPU and PVA; Sovol only recommends ABS, ASA, PA and PC with the heated enclosure. For those materials, use the K1 Max (enclosed) for now.
-- Orca: start from Sovol's system profile. Multi-tool profiles (7 extruders, IDEX copy/mirror) are new territory for this repo. Upstream OrcaSlicer merged generic IDEX/IQEX parallel printing on 2026-10-10 (PR #13086: `is_imex`, per-plate Copy/Mirror, `imex_mode_gcodes`, per-tool PA). It's not in a release yet, and the PR thread expects the M1D community to adopt it. Check whether Sovol's profile uses it.
+- Orca: start from Sovol's system profile. Multi-tool profiles (7 extruders, IDEX copy/mirror) are new territory for this repo. Upstream OrcaSlicer merged generic IDEX/IQEX parallel printing on 2026-10-10 (PR #13086: `is_imex`, per-plate Copy/Mirror, `imex_mode_gcodes`, per-tool PA). It's in the V2.5.0 RC (2026-11-01, pre-release) but not yet a stable release, and the PR thread expects the M1D community to adopt it. Check whether Sovol's profile uses it.
 
 ## On arrival checklist
 - [ ] Record the firmware version, mainboard/SoC, host hostname and IP
@@ -59,5 +63,9 @@
 - Sovol maintenance guide: https://www.sovol3d.com/blogs/news/tool-changing-3d-printer-maintenance-how-to-keep-your-m1d-printing-reliably
 - sovol.uk overview: https://sovol.uk/blogs/news/sovol-m1d-multi-color-multi-material-3d-printer
 - JCPRINTFARM pre-order analysis (ship-date quote from 2026-09-28): https://www.jcprintfarm.com/blogs/3d-printing-tech/sovol-m1d-review
+- Kickstarter updates (backer login needed for #5 and #6): https://www.kickstarter.com/projects/sovol/sovol-m1d-idex-tool-changing-3d-printer/posts
+- Kickstarter FAQ: https://www.kickstarter.com/projects/sovol/sovol-m1d-idex-tool-changing-3d-printer/faqs
+- Aurora Tech Channel (store preorder price and ship estimate, 2026-10-21): https://auroratechchannel.com/news-detail.php?id=14
 - OrcaSlicer PR #13086 (IDEX/IQEX parallel printing): https://github.com/OrcaSlicer/OrcaSlicer/pull/13086
+- OrcaSlicer V2.5.0 RC: https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.5.0-rc
 - eddy-ng issue on the Sovol eddy probe and mainline Klipper: https://github.com/vvuk/eddy-ng/issues/105
