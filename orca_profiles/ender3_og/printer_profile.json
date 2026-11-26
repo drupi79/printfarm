@@ -152,9 +152,9 @@
     "preferred_orientation": "0",
     "printable_area": [
         "0x0",
-        "250x0",
-        "250x240",
-        "0x240"
+        "220x0",
+        "220x220",
+        "0x220"
     ],
     "printable_height": "250",
     "printer_model": "Creality Ender-3",

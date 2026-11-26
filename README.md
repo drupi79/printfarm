@@ -16,13 +16,15 @@ Klipper configs, OrcaSlicer profiles, and Marlin hardware notes for a home 3D pr
 | Wanhao D6 | Cartesian | 200×200 | BDsensor (EBB42 CAN) | Bambu X1C (HICTOP) | Pi 4 8GB |
 | K1 Max | CoreXY | 300×300 | Strain gauge | Unicorn | — |
 | SparkX i7 | Cartesian | 260×260 | Strain gauge | Quick-swap 300°C | — |
-| Sovol M1D Essential *(arriving ~Dec 2026)* | Cartesian IDEX + 6-head toolchanger | 300×300 | Eddy current | All-metal 300°C ×7 | TBD |
+| Sovol M1D Essential *(arriving ~early 2027)* | Cartesian IDEX + 6-head toolchanger | 300×300 | Eddy current | All-metal 300°C ×7 | TBD |
 
 All Klipper printers run direct drive BMG or equivalent extruders, firmware retraction (0.6mm), and KAMP adaptive bed meshing. The Ender 3 V2 twins and Ender 7 use Apollo Mini toolheads (SquirrelF3D, 4010 blowers); the Ender 3 Pro and Ender 3 OG use Apollo Lander toolheads (SquirrelF3D, 5015 blowers). The Wanhao D6 uses a toolhead designed by Emil Saloheimo (Printables) for BMG + Bambu Lab hotend, modified by drupi79 to add CAN bus (BTT EBB42). The K1 Max is rooted via Guilouz Helper Script and runs its own macro set (not shared) with a Creality metal extruder and Unicorn hotend upgrade. The SparkX i7 runs Creality OS (Klipper fork) and has its own self-contained macro set — it has an integrated direct drive extruder with filament cutter and CFS Lite 4-spool multi-color system; Guilouz Helper Script does not currently support it.
 
 > **Sovol M1D — preliminary, not yet received:** specs from pre-release info; see `docs/printers/sovol_m1d.md`. No config until it arrives.
 
 > **Marlin (MRisCoC) — no Klipper config:** Ender 3 V2 Marlin — hardware notes in `marlin/ender3_v2_marlin/`
+
+> **SparkX i7 — no config in this repo yet:** there is no `klipper/printers/sparkx_i7/` or `orca_profiles/` folder for it.
 
 ## Structure
 
@@ -56,9 +58,8 @@ Most printers — copy shared files and the printer-specific config:
 scp klipper/shared/*.cfg klipper/printers/<name>/printer.cfg pi@<hostname>:~/printer_data/config/
 ```
 
-K1 Max and SparkX i7 — copy all files in the printer's folder (do **not** overwrite `Helper-Script/` files managed by the Guilouz helper script):
+K1 Max — copy all files in the printer's folder (do **not** overwrite `Helper-Script/` files managed by the Guilouz helper script):
 
 ```bash
 scp klipper/printers/k1_max/*.cfg root@k1max:~/printer_data/config/
-scp klipper/printers/sparkx_i7/*.cfg root@sparkxi7:~/printer_data/config/
 ```

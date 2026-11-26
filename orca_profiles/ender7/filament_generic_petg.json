@@ -1,6 +1,6 @@
 {
     "compatible_printers": [
-        "MyKlipper 0.4 nozzle"
+        "Ender 7"
     ],
     "enable_pressure_advance": [
         "1"
