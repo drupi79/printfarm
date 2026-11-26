@@ -158,7 +158,7 @@
     ],
     "printable_height": "500",
     "printer_model": "Elegoo Neptune 3 Max",
-    "printer_notes": "Optimized for Neptune 3 Max - 0.6mm Diamondback nozzle:\n- ZNP Robin Nano DW v2.2 board\n- Direct Drive extruder\n- Slice Engineering Copperhead hotend\n- Slice Engineering Diamondback 0.6mm nozzle\n- Stock probe (offset: -28.5, 22)\n- Input Shaping (mzv @ 52.2Hz X, ei @ 40.0Hz Y)\n- Max Accel: 3000 mm/s²\n- Max flow (Copperhead 0.6mm): ~27mm³/s PLA | ~21mm³/s PETG\n\nFine Detail variant (2026-08-28): identical machine limits/retraction to the standard 0.6mm profile, but with wipe-on-retract enabled. For models with fine engraved/embossed detail narrower than ~2x line width (0.68mm), Orca's detect_thin_wall prints those as a single unsupported bead with frequent short travels between segments -- wipe cleans ooze off the nozzle tip before each z-hop/travel instead of dragging it into visible whiskers/stringing at sharp corners. Pair with 0.30mm FINE DETAIL @Neptune3Max (0.6) process profile (lower gap_infill_speed and travel_speed to reduce wobble/fling on those same short segments). Does not replace or modify printer_06mm.json.",
+    "printer_notes": "Optimized for Neptune 3 Max - 0.6mm Diamondback nozzle:\n- ZNP Robin Nano DW v2.2 board\n- Direct Drive extruder\n- Slice Engineering Copperhead hotend\n- Slice Engineering Diamondback 0.6mm nozzle\n- Stock probe (offset: -28.5, 22)\n- Input Shaping (mzv @ 52.2Hz X, ei @ 40.0Hz Y)\n- Max Accel: 3000 mm/s²\n- Max flow (Copperhead 0.6mm): ~27mm³/s PLA | ~21mm³/s PETG\n\nFine Detail variant (2026-08-28): originally shipped with wipe-on-retract enabled (wipe=1, wipe_distance=2mm) to reduce whisker stringing on fine engraved detail. REVERTED same day -- on this geometry's short/aligned-seam loops, the printer-level wipe stacked with the process profile's existing wipe_on_loops/wipe_before_external_loop and dragged the nozzle past the loop's closing point before retracting, producing a layer-to-layer non-bonding gap at every aligned seam (\"next line isn't connecting\"), worse than the original defect. wipe/wipe_distance now match printer_06mm.json (0 / 1mm) -- this profile is currently a functional clone of the standard 0.6mm printer profile. Machine-level lever is parked pending further investigation; the live variable under test is now just the process profile's gap_infill_speed/travel_speed reduction, paired with this printer profile or printer_06mm.json interchangeably. Does not replace or modify printer_06mm.json.",
     "printer_settings_id": "Elegoo Neptune 3 Max - Klipper OPTIMIZED (0.6mm Fine Detail)",
     "printer_structure": "i3",
     "printer_technology": "FFF",
@@ -223,10 +223,10 @@
     "use_relative_e_distances": "1",
     "version": "2.3.2.0",
     "wipe": [
-        "1"
+        "0"
     ],
     "wipe_distance": [
-        "2"
+        "1"
     ],
     "z_hop": [
         "0.2"
